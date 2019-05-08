@@ -23,9 +23,7 @@ public class NewSearchDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		try {
 			NewSearchDialog dialog = new NewSearchDialog();
@@ -36,9 +34,6 @@ public class NewSearchDialog extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public NewSearchDialog() {
 		setTitle("\u0391\u039D\u0391\u0396\u0397\u03A4\u0397\u03A3\u0397 \u0391\u03A0\u039F\u03A3\u03A4\u039F\u039B\u0397\u03A3");
 		setResizable(false);
@@ -98,6 +93,7 @@ public class NewSearchDialog extends JDialog {
 				dispose();
 			}
 		});
+		
 		button_1.setFont(new Font("Calibri", Font.BOLD, 18));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
