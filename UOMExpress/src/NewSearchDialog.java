@@ -16,12 +16,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 
 public class NewSearchDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	private JTextField searchTextField;
 
 	
 	public static void main(String[] args) {
@@ -34,7 +37,7 @@ public class NewSearchDialog extends JDialog {
 		}
 	}
 
-	public NewSearchDialog() {
+	public NewSearchDialog() throws FileNotFoundException {
 		setTitle("\u0391\u039D\u0391\u0396\u0397\u03A4\u0397\u03A3\u0397 \u0391\u03A0\u039F\u03A3\u03A4\u039F\u039B\u0397\u03A3");
 		setResizable(false);
 		setModal(true);
@@ -78,11 +81,22 @@ public class NewSearchDialog extends JDialog {
 		label_1.setForeground(Color.WHITE);
 		label_1.setFont(new Font("Calibri", Font.BOLD, 16));
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Calibri", Font.BOLD, 35));
-		textField.setColumns(10);
+		searchTextField = new JTextField();
+		searchTextField.setFont(new Font("Calibri", Font.BOLD, 35));
+		searchTextField.setColumns(10);
 		
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				try {
+					newSearch("C:/Users/argir/git/UoM-Express/UOMExpress/apostoles.txt", searchTextField.getText());
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
 		button.setIcon(new ImageIcon(NewSearchDialog.class.getResource("/pics/magnifier.png")));
 		
 		JPanel panel_1 = new JPanel();
@@ -112,7 +126,7 @@ public class NewSearchDialog extends JDialog {
 									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(panel_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-											.addComponent(textField, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE)
+											.addComponent(searchTextField, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(button, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))))))
 						.addGroup(gl_panel.createSequentialGroup()
@@ -129,7 +143,7 @@ public class NewSearchDialog extends JDialog {
 					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+						.addComponent(searchTextField, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
 						.addComponent(button, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
@@ -139,6 +153,27 @@ public class NewSearchDialog extends JDialog {
 		);
 		panel.setLayout(gl_panel);
 		contentPanel.setLayout(gl_contentPanel);
+		
+		
+		
+		
+       
+	}
+	
+	
+	public void newSearch  (String fileName,String code) throws FileNotFoundException{
+		
+	        Scanner scan = new Scanner(new File(fileName));
+	        while(scan.hasNext()){
+	            String line = scan.nextLine().toLowerCase().toString();
+	            if(line.contains(code)){
+	                System.out.println(line);
+	            }
+	        }
+	        
+	}
+	        
+	    
 	}
 
-}
+
