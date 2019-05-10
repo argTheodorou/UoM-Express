@@ -142,7 +142,7 @@ public class MainMenu {
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(85)
+					.addGap(85) 
 					.addComponent(newPacketbtn, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(searchBtn, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
