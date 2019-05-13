@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.Button;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -100,9 +101,15 @@ public class MainMenu {
 				searchBtn.setFont(new Font("Calibri", Font.BOLD, 30));
 				searchBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						NewSearchDialog searchDial = new NewSearchDialog();
-						searchDial.setVisible(true);
-
+						NewSearchDialog searchDial;
+						try {
+							searchDial = new NewSearchDialog();
+							searchDial.setVisible(true);
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 					}
 				});
 		

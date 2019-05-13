@@ -321,7 +321,7 @@ public class NewShipmentDialog extends JDialog {
 		System.out.println(senderName);
 		BufferedWriter writer = null;
 		try {
-			File orderFile = new File("ΑΠΟΣΤΟΛΕΣ");
+			File orderFile = new File("apostoles.txt");
 			System.out.println(orderFile.getCanonicalPath());
 			writer = new BufferedWriter(new FileWriter(orderFile, true));
 			writer.write(senderName + "   ");
