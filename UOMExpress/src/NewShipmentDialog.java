@@ -133,18 +133,23 @@ public class NewShipmentDialog extends JDialog {
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "Αθήνα" }));
 
 		senderName = new JTextField();
+		senderName.setFont(new Font("Calibri", Font.BOLD, 14));
 		senderName.setColumns(10);
 
 		recieverName = new JTextField();
+		recieverName.setFont(new Font("Calibri", Font.BOLD, 14));
 		recieverName.setColumns(10);
 
 		adressText = new JTextField();
+		adressText.setFont(new Font("Calibri", Font.BOLD, 14));
 		adressText.setColumns(10);
 
 		TKtext = new JTextField();
+		TKtext.setFont(new Font("Calibri", Font.BOLD, 14));
 		TKtext.setColumns(10);
 
 		telephoneText = new JTextField();
+		telephoneText.setFont(new Font("Calibri", Font.BOLD, 14));
 		telephoneText.setColumns(10);
 
 		size1Text = new JTextField();
@@ -205,10 +210,10 @@ public class NewShipmentDialog extends JDialog {
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
 				Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup().addGroup(gl_panel.createParallelGroup(
-						Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup().addGap(54).addComponent(label,
-								GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_panel.createSequentialGroup().addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_panel.createSequentialGroup().addGap(54).addComponent(
+										label, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup().addGap(22).addGroup(gl_panel
 								.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_panel.createSequentialGroup().addComponent(label_1)
@@ -242,9 +247,12 @@ public class NewShipmentDialog extends JDialog {
 												GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup().addGroup(gl_panel
 										.createParallelGroup(Alignment.TRAILING)
-										.addGroup(gl_panel.createSequentialGroup().addGap(54).addComponent(label_11)
-												.addPreferredGap(ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-												.addComponent(label_10).addGap(13))
+										.addGroup(Alignment.LEADING,
+												gl_panel.createSequentialGroup().addGap(54)
+														.addComponent(label_11)
+														.addPreferredGap(ComponentPlacement.RELATED, 36,
+																Short.MAX_VALUE)
+														.addComponent(label_10).addGap(14))
 										.addGroup(gl_panel.createSequentialGroup().addComponent(label_8)
 												.addPreferredGap(ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
 												.addComponent(size1Text, GroupLayout.PREFERRED_SIZE, 53,
@@ -255,11 +263,12 @@ public class NewShipmentDialog extends JDialog {
 												GroupLayout.PREFERRED_SIZE))
 								.addComponent(button, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 337,
 										GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel.createSequentialGroup().addGap(128).addComponent(label_9))
-						.addGroup(gl_panel.createSequentialGroup().addGap(107).addComponent(radioButton).addGap(110)
+						.addGroup(gl_panel.createSequentialGroup().addGap(107).addComponent(radioButton).addGap(109)
 								.addComponent(radioButton_1, GroupLayout.PREFERRED_SIZE, 21,
 										GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap()));
+						.addContainerGap())
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup().addContainerGap(128, Short.MAX_VALUE)
+						.addComponent(label_9).addGap(127)));
 		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup().addContainerGap()
 						.addComponent(label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
@@ -299,14 +308,14 @@ public class NewShipmentDialog extends JDialog {
 								.addComponent(size3Text, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 								.addComponent(size2Text, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 								.addComponent(size1Text, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING).addComponent(label_10)
-								.addComponent(label_11))
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING).addComponent(label_11)
+								.addComponent(label_10))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(
-								gl_panel.createParallelGroup(Alignment.LEADING).addComponent(radioButton).addComponent(
+								gl_panel.createParallelGroup(Alignment.TRAILING).addComponent(radioButton).addComponent(
 										radioButton_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(button, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
@@ -324,25 +333,18 @@ public class NewShipmentDialog extends JDialog {
 			File orderFile = new File("apostoles.txt");
 			System.out.println(orderFile.getCanonicalPath());
 			writer = new BufferedWriter(new FileWriter(orderFile, true));
-			writer.write(senderName + "   ");
-			writer.write(recieverName+ "   ");
-			writer.write(TKtext+ "   ");
-			writer.write(telephoneText+ "   ");
-			writer.write(size1+ "   ");
-			writer.write(size2+ "   ");
-			writer.write(size3+ "   ");
+			writer.write(senderName + "," + recieverName + "," + TKtext + "," + telephoneText + "," + size1 + ","
+					+ size2 + "," + size3 );
 			writer.newLine();
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				
+
 				writer.close();
 			} catch (Exception e) {
 			}
 		}
 	}
-
 }
