@@ -83,43 +83,42 @@ public class MainMenu {
 		frmUOMEXPRESS.setMinimumSize(new Dimension(480, 480));
 		frmUOMEXPRESS.setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/pics/box.png")));
 		frmUOMEXPRESS.getContentPane().setBackground(new Color(57, 62, 70));
-		
-				JButton newPacketbtn = new JButton("Nέα αποστολή");
-				newPacketbtn.setFont(new Font("Calibri", Font.BOLD, 30));
-				newPacketbtn.setBackground(new Color(0,173,181));
-				newPacketbtn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						NewShipmentDialog dial = new NewShipmentDialog();
-						dial.setVisible(true);
 
-					}
-				});
-		
-				JButton searchBtn = new JButton(
-						"Αναζήτηση αποστολής");
-				searchBtn.setBackground(new Color(0, 173, 181));
-				searchBtn.setFont(new Font("Calibri", Font.BOLD, 30));
-				searchBtn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						NewSearchDialog searchDial;
-						try {
-							searchDial = new NewSearchDialog();
-							searchDial.setVisible(true);
-						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						
-					}
-				});
-		
-				JButton helpBtn = new JButton("\u0392\u03BF\u03AE\u03B8\u03B5\u03B9\u03B1");
-				helpBtn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					}
-				});
-		
+		JButton newPacketbtn = new JButton("Nέα αποστολή");
+		newPacketbtn.setFont(new Font("Calibri", Font.BOLD, 30));
+		newPacketbtn.setBackground(new Color(0, 173, 181));
+		newPacketbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewShipmentDialog dial = new NewShipmentDialog();
+				dial.setVisible(true);
+
+			}
+		});
+
+		JButton searchBtn = new JButton("Αναζήτηση αποστολής");
+		searchBtn.setBackground(new Color(0, 173, 181));
+		searchBtn.setFont(new Font("Calibri", Font.BOLD, 30));
+		searchBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewSearchDialog searchDial;
+				try {
+					searchDial = new NewSearchDialog();
+					searchDial.setVisible(true);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
+		JButton helpBtn = new JButton("\u0392\u03BF\u03AE\u03B8\u03B5\u03B9\u03B1");
+		helpBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
 		JButton button = new JButton("Κατάσταση μέσων");
 		button.setBackground(new Color(0, 173, 181));
 		button.addActionListener(new ActionListener() {
@@ -128,37 +127,33 @@ public class MainMenu {
 		});
 		button.setFont(new Font("Calibri", Font.BOLD, 30));
 		GroupLayout groupLayout = new GroupLayout(frmUOMEXPRESS.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(72)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(button, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(newPacketbtn, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-								.addComponent(searchBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(95))))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(169)
-					.addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(201, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(85) 
-					.addComponent(newPacketbtn, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(searchBtn, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(49, Short.MAX_VALUE))
-		);
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup().addGap(72)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(button, GroupLayout.PREFERRED_SIZE, 315,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addComponent(newPacketbtn, GroupLayout.DEFAULT_SIZE, 315,
+														Short.MAX_VALUE)
+												.addComponent(searchBtn, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addGap(95))))
+				.addGroup(Alignment.LEADING,
+						groupLayout.createSequentialGroup().addGap(169)
+								.addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(201, Short.MAX_VALUE)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
+				groupLayout.createSequentialGroup().addGap(85)
+						.addComponent(newPacketbtn, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(searchBtn, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(button, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE).addGap(18)
+						.addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(49, Short.MAX_VALUE)));
 		frmUOMEXPRESS.getContentPane().setLayout(groupLayout);
 
 		frmUOMEXPRESS.setTitle("UOM EXPRESS");
