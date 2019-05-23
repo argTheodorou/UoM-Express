@@ -26,7 +26,7 @@ public class NewCompletenessDialog extends JDialog {
 
 	public NewCompletenessDialog() {
 		setTitle(
-				"\u0391\u039D\u0391\u0396\u0397\u03A4\u0397\u03A3\u0397 \u0391\u03A0\u039F\u03A3\u03A4\u039F\u039B\u0397\u03A3");
+				"\u0395\u039B\u0395\u0393\u03A7\u039F\u03A3 \u03A0\u039B\u0397\u03A1\u039F\u03A4\u0397\u03A4\u0391\u03A3 \u039C\u0395\u03A3\u03A9\u039D");
 		setResizable(false);
 		setModal(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewSearchDialog.class.getResource("/pics/box.png")));
