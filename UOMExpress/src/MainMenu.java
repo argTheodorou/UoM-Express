@@ -119,28 +119,31 @@ public class MainMenu {
 			}
 		});
 
-		JButton button = new JButton("Κατάσταση μέσων");
-		button.setBackground(new Color(0, 173, 181));
-		button.addActionListener(new ActionListener() {
+		JButton completnessButton = new JButton("Κατάσταση μέσων");
+		completnessButton.setBackground(new Color(0, 173, 181));
+		completnessButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				NewCompletenessDialog completnessDial = new NewCompletenessDialog();
+				completnessDial.setVisible(true);
 			}
 		});
-		button.setFont(new Font("Calibri", Font.BOLD, 30));
+		completnessButton.setFont(new Font("Calibri", Font.BOLD, 30));
+
 		GroupLayout groupLayout = new GroupLayout(frmUOMEXPRESS.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup().addGap(72)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(button, GroupLayout.PREFERRED_SIZE, 315,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap())
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(newPacketbtn, GroupLayout.DEFAULT_SIZE, 315,
-														Short.MAX_VALUE)
-												.addComponent(searchBtn, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addGap(95))))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup().addGap(72).addGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(completnessButton, GroupLayout.PREFERRED_SIZE, 315,
+										GroupLayout.PREFERRED_SIZE)
+								.addContainerGap())
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(newPacketbtn, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+										.addComponent(searchBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE))
+								.addGap(95))))
 				.addGroup(Alignment.LEADING,
 						groupLayout.createSequentialGroup().addGap(169)
 								.addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
@@ -151,8 +154,8 @@ public class MainMenu {
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(searchBtn, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(button, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE).addGap(18)
-						.addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						.addComponent(completnessButton, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+						.addGap(18).addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(49, Short.MAX_VALUE)));
 		frmUOMEXPRESS.getContentPane().setLayout(groupLayout);
 
