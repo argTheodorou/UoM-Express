@@ -30,6 +30,8 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.Calendar;
+import java.util.Random;
 
 import javax.swing.UIManager;
 import java.awt.SystemColor;
@@ -329,12 +331,26 @@ public class NewShipmentDialog extends JDialog {
 			String size2, String size3) {
 		System.out.println(senderName);
 		BufferedWriter writer = null;
+		Random rand = new Random();
 		try {
 			File orderFile = new File("apostoles.txt");
 			System.out.println(orderFile.getCanonicalPath());
 			writer = new BufferedWriter(new FileWriter(orderFile, true));
-			writer.write(senderName + "," + recieverName + "," + TKtext + "," + telephoneText + "," + size1 + ","
+			
+			String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+			String month = Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
+			String day = Integer.toString(Calendar.getInstance().get(Calendar.DATE));
+			String hour = Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+			String minute = Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
+			String second = Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
+			int randomNumber = 1000 + rand.nextInt(9000);
+			
+			String barcode = year+month+day+hour+minute+second+randomNumber;
+			
+			writer.write(barcode + ","+ senderName + "," + recieverName + "," + TKtext + "," + telephoneText + "," + size1 + ","
 					+ size2 + "," + size3 );
+			System.out.println(barcode);
+			
 			writer.newLine();
 
 		} catch (Exception e) {
