@@ -195,24 +195,29 @@ public class NewShipmentDialog extends JDialog {
 		label_11.setIcon(new ImageIcon(NewShipmentDialog.class.getResource("/pics/ship90x90.png")));
 
 		JButton button = new JButton("");
+	
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				//IF INPUT IS VALIDATED AND RESULT OF TEST IS TRUE,  THEN THE ORDER IS PROCESSED AND ADDED TO THE LIST
-				if(validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
-						size1Text.getText(), size2Text.getText(), size3Text.getText()))
+				 boolean meme = true;
+				meme = validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
+						size1Text.getText(), size2Text.getText(), size3Text.getText());
+				if(meme)
 				{
 					newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
 							size1Text.getText(), size2Text.getText(), size3Text.getText());
+					JOptionPane.showMessageDialog(null,
+							"ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " + senderName.getText()
+									+ " \n ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ:" + recieverName.getText() + "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
+									+ adressText.getText());
+					dispose();
 				}
 				
 				
 				
-				JOptionPane.showMessageDialog(null,
-						"ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " + senderName.getText()
-								+ " \n ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ:" + recieverName.getText() + "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
-								+ adressText.getText());
-				dispose();
+				
+				
 			}
 
 		});
@@ -400,16 +405,6 @@ public class NewShipmentDialog extends JDialog {
 			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε ύψος δέματος");
 			return false;
 		}
-		
-		
-		
-		
-			
-		
-		
-		
-		
-		
 		return true;
 	}
 }
