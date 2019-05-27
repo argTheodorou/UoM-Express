@@ -197,9 +197,16 @@ public class NewShipmentDialog extends JDialog {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
-						size1Text.getText(), size2Text.getText(), size3Text.getText());
-				validateInput(senderName.getText());
+				
+				//IF INPUT IS VALIDATED AND RESULT OF TEST IS TRUE,  THEN THE ORDER IS PROCESSED AND ADDED TO THE LIST
+				if(validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
+						size1Text.getText(), size2Text.getText(), size3Text.getText()))
+				{
+					newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
+							size1Text.getText(), size2Text.getText(), size3Text.getText());
+				}
+				
+				
 				
 				JOptionPane.showMessageDialog(null,
 						"ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " + senderName.getText()
@@ -358,7 +365,6 @@ public class NewShipmentDialog extends JDialog {
 			e.printStackTrace();
 		} finally {
 			try {
-
 				writer.close();
 			} catch (Exception e) {
 			}
@@ -375,24 +381,24 @@ public class NewShipmentDialog extends JDialog {
 			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
 			return false;}
 		if (TKtext!= null && TKtext.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
-			return false;}
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε ταχυδρομικό κώδικα");
+			return false;
 		}
 		if (telephoneText!= null && telephoneText.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
-			return false;}
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε το τηλέφωνο επικοιωνίας");
+			return false;
 		}
 		if (size1!= null && size1.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
-			return false;}
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε μήκος δέματος");
+			return false;
 		}
 		if (size2!= null && size2.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
-			return false;}
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε πλάτος δέματος");
+			return false;
 		}
 		if (size3!= null && size3.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
-			return false;}
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε ύψος δέματος");
+			return false;
 		}
 		
 		
