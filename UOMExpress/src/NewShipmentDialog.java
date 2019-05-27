@@ -199,7 +199,8 @@ public class NewShipmentDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
 						size1Text.getText(), size2Text.getText(), size3Text.getText());
-
+				validateInput(senderName.getText());
+				
 				JOptionPane.showMessageDialog(null,
 						"ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " + senderName.getText()
 								+ " \n ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ:" + recieverName.getText() + "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
@@ -362,5 +363,47 @@ public class NewShipmentDialog extends JDialog {
 			} catch (Exception e) {
 			}
 		}
+	}
+	
+	
+	private boolean validateInput(String senderName,String recieverName,String TKtext, String telephoneText, String size1,
+			String size2, String size3){
+		if(senderName != null && senderName.isEmpty()){
+		JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα αποστολέα");
+			return false;}
+		if (recieverName!= null && recieverName.isEmpty()){
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
+			return false;}
+		if (TKtext!= null && TKtext.isEmpty()){
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
+			return false;}
+		}
+		if (telephoneText!= null && telephoneText.isEmpty()){
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
+			return false;}
+		}
+		if (size1!= null && size1.isEmpty()){
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
+			return false;}
+		}
+		if (size2!= null && size2.isEmpty()){
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
+			return false;}
+		}
+		if (size3!= null && size3.isEmpty()){
+			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
+			return false;}
+		}
+		
+		
+		
+		
+			
+		
+		
+		
+		
+		
+		return true;
 	}
 }
