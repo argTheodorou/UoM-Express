@@ -11,6 +11,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
@@ -72,16 +74,18 @@ public class NewSearchDialog extends JDialog {
 		label_1.setFont(new Font("Calibri", Font.BOLD, 16));
 
 		searchBarcodeField = new JTextField();
-		searchBarcodeField.setText("BARCODE");
+		searchBarcodeField.setToolTipText("Κωδικός Αναζήτησης");
 		searchBarcodeField.setFont(new Font("Calibri", Font.BOLD, 35));
 		searchBarcodeField.setColumns(10);
 
 		JButton button = new JButton("");
+		button.setToolTipText("Αναζήτηση");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					newSearch("C:/Users/argir/git/UoM-Express/UOMExpress/apostoles.txt", searchBarcodeField.getText(), searchPostCodeField.getText());
+					String[] resultArray = newSearch("C:/Users/argir/git/UoM-Express/UOMExpress/apostoles.txt", searchBarcodeField.getText(), searchPostCodeField.getText());
+					System.out.println(resultArray[4]);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -101,7 +105,7 @@ public class NewSearchDialog extends JDialog {
 		button_1.setFont(new Font("Calibri", Font.BOLD, 18));
 		
 		searchPostCodeField = new JTextField();
-		searchPostCodeField.setText("POSTCODE");
+		searchPostCodeField.setToolTipText("Ταχυδρομικός Κώδικας");
 		searchPostCodeField.setFont(new Font("Calibri", Font.BOLD, 35));
 		searchPostCodeField.setColumns(10);
 		
@@ -113,7 +117,7 @@ public class NewSearchDialog extends JDialog {
 		label_3.setFont(new Font("Calibri", Font.BOLD, 16));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
@@ -126,17 +130,16 @@ public class NewSearchDialog extends JDialog {
 								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 									.addComponent(label_1, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
 									.addGroup(gl_panel.createSequentialGroup()
-										.addGap(5)
-										.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-											.addComponent(searchBarcodeField, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE)
-											.addComponent(searchPostCodeField, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(button, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)))))
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+											.addComponent(searchPostCodeField, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE)
+											.addComponent(searchBarcodeField, Alignment.TRAILING, 0, 0, Short.MAX_VALUE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(button, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(90)
 							.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)))
 					.addGap(20))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap(58, Short.MAX_VALUE)
 					.addComponent(label_3)
 					.addGap(56))
@@ -151,10 +154,10 @@ public class NewSearchDialog extends JDialog {
 					.addGap(2)
 					.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 							.addComponent(searchBarcodeField, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(searchPostCodeField, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
 						.addComponent(button, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
 					.addGap(13)
@@ -168,17 +171,22 @@ public class NewSearchDialog extends JDialog {
 
 	}
 
-	public void newSearch(String fileName, String code, String postCode) throws FileNotFoundException {
+	public String [] newSearch (String fileName, String code, String postCode) throws FileNotFoundException {
 
 		Scanner scan = new Scanner(new File(fileName));
+		String [] separatedByCommasList = null;
 		while (scan.hasNext()) {
 			String line = scan.nextLine().toLowerCase().toString();
-			if (line.contains(code) && line.contains(postCode)) {
-				String [] separatedStats = line.split(",");
-				String tk = separatedStats[3];
-				System.out.println(tk.toString());
+			if (line.contains(code)) { //searches whole document by line if it contains BOTH these Strings
+			separatedByCommasList = line.split(",");  //pushes the selected line into an array.every String is put in a different field. starting at [0]
+				if (separatedByCommasList[3].contains(postCode)){    
+					return separatedByCommasList;
+				}
+				else
+					JOptionPane.showMessageDialog(null,"Λάθος Στοιχεία.");
 			}
 		}
+		return separatedByCommasList;
 
 	}
 }
