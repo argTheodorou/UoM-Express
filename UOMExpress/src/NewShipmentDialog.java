@@ -29,9 +29,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Calendar;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.UIManager;
 import java.awt.SystemColor;
@@ -167,48 +171,82 @@ public class NewShipmentDialog extends JDialog {
 		label_9.setForeground(Color.WHITE);
 		label_9.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		JRadioButton radioButton = new JRadioButton("");
-		radioButton.setSelected(true);
-		radioButton.setBackground(new Color(57, 62, 70));
-		buttonGroup_2.add(radioButton);
+		JRadioButton radioButtonShip = new JRadioButton("");
+		radioButtonShip.setSelected(true);
+		radioButtonShip.setBackground(new Color(57, 62, 70));
+		buttonGroup_2.add(radioButtonShip);
 
-		JRadioButton radioButton_1 = new JRadioButton("");
-		radioButton_1.setBackground(new Color(57, 62, 70));
-		buttonGroup_2.add(radioButton_1);
-
-		JLabel label_10 = new JLabel("");
-		label_10.addMouseListener(new MouseAdapter() {
+		JRadioButton radioButtonPlane = new JRadioButton("");
+		radioButtonPlane.setBackground(new Color(57, 62, 70));
+		buttonGroup_2.add(radioButtonPlane);
+       
+		//the following lines of code enable the pictures above the radiobuttons to be clickable and change the values of the radiobuttons
+		JLabel planePicture = new JLabel("");
+		planePicture.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				radioButton_1.setSelected(true);
+				radioButtonPlane.setSelected(true);
 			}
 		});
-		label_10.setIcon(new ImageIcon(NewShipmentDialog.class.getResource("/pics/plane90x90.png")));
+		planePicture.setIcon(new ImageIcon(NewShipmentDialog.class.getResource("/pics/plane90x90.png")));
 
-		JLabel label_11 = new JLabel("");
-		label_11.addMouseListener(new MouseAdapter() {
+		JLabel shipPicture = new JLabel("");
+		shipPicture.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				radioButton.setSelected(true);
+				radioButtonShip.setSelected(true);
 			}
 		});
-		label_11.setIcon(new ImageIcon(NewShipmentDialog.class.getResource("/pics/ship90x90.png")));
+		shipPicture.setIcon(new ImageIcon(NewShipmentDialog.class.getResource("/pics/ship90x90.png")));
 
+		
+		//creates the txt file that contains the capacity of the two available transfer methods
+		//first number will be the remaining size of the ship and the second for the airplane
+		//numbers represent square centimeters to match user input dimensions that's going to be in centimeters
+		setCapacity("80000","600000");
+		
+		
+		
+		
+		
+		
+		
+		
 		JButton button = new JButton("");
 
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				//saves the selected radiobutton to a string that is later saved in the shippings list
+				String selectedShippingMethod;
+				if (radioButtonPlane.isSelected())
+					selectedShippingMethod = "PL";
+				else 
+					selectedShippingMethod = "SH";
+				
 				// IF INPUT IS VALIDATED AND RESULT OF TEST IS TRUE, THEN THE
 				// ORDER IS PROCESSED AND ADDED TO THE LIST
-				boolean meme = true;
-				meme = validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(),
+				boolean inputIsCorrect = true;
+				inputIsCorrect = validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(),
 						telephoneText.getText(), size1Text.getText(), size2Text.getText(), size3Text.getText());
-				if (meme) {
-					String searchCode = newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
-							size1Text.getText(), size2Text.getText(), size3Text.getText());
+			
+				if (inputIsCorrect){
+				try {
+					reduceCapacity("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt", size1Text.getText(), size2Text.getText(), size3Text.getText(), selectedShippingMethod);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+				}
+				if (inputIsCorrect) {
+					String searchCode = null;
+					try {
+						searchCode = newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
+								size1Text.getText(), size2Text.getText(), size3Text.getText(), selectedShippingMethod);
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
 					
-					
+					//prints the "SUCCESS" message with the important data that was entered and the newly created searchCode
 					JOptionPane.showMessageDialog(null,
 							        "ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " 
 									+ senderName.getText()
@@ -266,10 +304,10 @@ public class NewShipmentDialog extends JDialog {
 										.createParallelGroup(Alignment.TRAILING)
 										.addGroup(Alignment.LEADING,
 												gl_panel.createSequentialGroup().addGap(54)
-														.addComponent(label_11)
+														.addComponent(shipPicture)
 														.addPreferredGap(ComponentPlacement.RELATED, 36,
 																Short.MAX_VALUE)
-														.addComponent(label_10).addGap(14))
+														.addComponent(planePicture).addGap(14))
 										.addGroup(gl_panel.createSequentialGroup().addComponent(label_8)
 												.addPreferredGap(ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
 												.addComponent(size1Text, GroupLayout.PREFERRED_SIZE, 53,
@@ -280,8 +318,8 @@ public class NewShipmentDialog extends JDialog {
 												GroupLayout.PREFERRED_SIZE))
 								.addComponent(button, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 337,
 										GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel.createSequentialGroup().addGap(107).addComponent(radioButton).addGap(109)
-								.addComponent(radioButton_1, GroupLayout.PREFERRED_SIZE, 21,
+						.addGroup(gl_panel.createSequentialGroup().addGap(107).addComponent(radioButtonShip).addGap(109)
+								.addComponent(radioButtonPlane, GroupLayout.PREFERRED_SIZE, 21,
 										GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap())
 				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup().addContainerGap(128, Short.MAX_VALUE)
@@ -328,12 +366,12 @@ public class NewShipmentDialog extends JDialog {
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING).addComponent(label_11)
-								.addComponent(label_10))
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING).addComponent(shipPicture)
+								.addComponent(planePicture))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(
-								gl_panel.createParallelGroup(Alignment.TRAILING).addComponent(radioButton).addComponent(
-										radioButton_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								gl_panel.createParallelGroup(Alignment.TRAILING).addComponent(radioButtonShip).addComponent(
+										radioButtonPlane, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(button, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
@@ -343,8 +381,7 @@ public class NewShipmentDialog extends JDialog {
 	}
 
 	private String newShipment(String senderName, String recieverName, String TKtext, String telephoneText, String size1,
-			String size2, String size3) {
-		System.out.println(senderName);
+			String size2, String size3, String selectedShippingMethod) throws FileNotFoundException {
 		BufferedWriter writer = null;
 		String barcode = barcodeGenerator();
 		try {
@@ -353,7 +390,8 @@ public class NewShipmentDialog extends JDialog {
 			writer = new BufferedWriter(new FileWriter(orderFile, true));
 			
 			writer.write(barcode + "," + senderName + "," + recieverName + "," + TKtext + "," + telephoneText + ","
-					+ size1 + "," + size2 + "," + size3);
+					+ size1 + "," + size2 + "," + size3 + "," + selectedShippingMethod );
+			
 			System.out.println(barcode);
 
 			writer.newLine();
@@ -366,9 +404,74 @@ public class NewShipmentDialog extends JDialog {
 			} catch (Exception e) {
 			}
 		}
+		
 		return barcode;
 		
 	}
+	
+	
+	private void setCapacity(String shipSize, String planeSize) {
+		PrintWriter capacityWriter = null;
+		try {
+			File capacityFile = new File("capacity.txt");
+			System.out.println(capacityFile.getCanonicalPath());
+			capacityWriter = new PrintWriter(new FileWriter(capacityFile));
+			//our truck has a daily transfer capacity of 80 square meters and our plane has 600 square meters
+			capacityWriter.write(shipSize + "," + planeSize);
+			
+		
+
+		
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				capacityWriter.close();
+			} catch (Exception e) {
+			}
+		}
+		
+		
+	}
+	private void reduceCapacity(String fileName, String size1, String size2, String size3, String toBeReduced) throws FileNotFoundException{
+		Scanner scan = new Scanner(new File(fileName));
+		String[] separatedByCommasMethod = null;
+		int meme = Integer.parseInt(size1)*Integer.parseInt(size2)*Integer.parseInt(size3);
+		
+		while (scan.hasNext()) {
+		 
+			String line = scan.nextLine();
+				separatedByCommasMethod = line.split(",");  //pushes the selected line into an array.every String is put in a different field. starting at [0]
+				System.out.println(separatedByCommasMethod[0]);	
+				if (toBeReduced == "SH"){ 
+					if(Integer.parseInt(separatedByCommasMethod[0]) < meme)
+					{
+					separatedByCommasMethod[0] = String.valueOf(Integer.parseInt(separatedByCommasMethod[0]) - meme);
+					setCapacity(separatedByCommasMethod[0],separatedByCommasMethod[1]);
+					}
+					else 
+						JOptionPane.showMessageDialog(null, "ΜΕΤΑΦΟΡΙΚΟ ΜΕΣΟ ΓΕΜΑΤΟ, ΔΙΑΛΕΞΤΕ ΤΟ ΑΛΛΟ ΙΣΩΣ ΕΧΕΙ ΧΩΡΟ");
+				}
+				else{
+					if((Integer.parseInt(separatedByCommasMethod[1]) - meme) > 0)
+					{
+						separatedByCommasMethod[1] = String.valueOf(Integer.parseInt(separatedByCommasMethod[1]) - meme);
+						setCapacity(separatedByCommasMethod[0],separatedByCommasMethod[1]);
+					}
+					else 
+						JOptionPane.showMessageDialog(null, "ΜΕΤΑΦΟΡΙΚΟ ΜΕΣΟ ΓΕΜΑΤΟ, ΔΙΑΛΕΞΤΕ ΤΟ ΑΛΛΟ ΙΣΩΣ ΕΧΕΙ ΧΩΡΟ");
+					
+						
+					
+				}
+				
+			}
+		
+	
+
+	}
+
 
 	private String barcodeGenerator() {
 		// creates a unique searchcode/barcode for each order based on time
@@ -387,7 +490,12 @@ public class NewShipmentDialog extends JDialog {
 			barcode = barcode + "0";
 		if (barcode.length() < 14)
 			barcode = barcode + "0";
-
+		if (barcode.length() < 14)
+			barcode = barcode + "0";
+		if (barcode.length() < 14)
+			barcode = barcode + "0";
+		
+	
 		return barcode;
 
 	}
