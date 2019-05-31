@@ -195,29 +195,31 @@ public class NewShipmentDialog extends JDialog {
 		label_11.setIcon(new ImageIcon(NewShipmentDialog.class.getResource("/pics/ship90x90.png")));
 
 		JButton button = new JButton("");
-	
+
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//IF INPUT IS VALIDATED AND RESULT OF TEST IS TRUE,  THEN THE ORDER IS PROCESSED AND ADDED TO THE LIST
-				 boolean meme = true;
-				meme = validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
-						size1Text.getText(), size2Text.getText(), size3Text.getText());
-				if(meme)
-				{
-					newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
+
+				// IF INPUT IS VALIDATED AND RESULT OF TEST IS TRUE, THEN THE
+				// ORDER IS PROCESSED AND ADDED TO THE LIST
+				boolean meme = true;
+				meme = validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(),
+						telephoneText.getText(), size1Text.getText(), size2Text.getText(), size3Text.getText());
+				if (meme) {
+					String searchCode = newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
 							size1Text.getText(), size2Text.getText(), size3Text.getText());
+					
+					
 					JOptionPane.showMessageDialog(null,
-							"ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " + senderName.getText()
-									+ " \n ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ:" + recieverName.getText() + "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
-									+ adressText.getText());
+							        "ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " 
+									+ senderName.getText()
+									+ " \n ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ:" + recieverName.getText() 
+									+ "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
+									+ adressText.getText()
+									+ "\n ΚΩΔΙΚΟΣ ΑΝΑΖΗΤΗΣΗΣ: " 
+									+searchCode);
 					dispose();
 				}
-				
-				
-				
-				
-				
+
 			}
 
 		});
@@ -340,30 +342,20 @@ public class NewShipmentDialog extends JDialog {
 
 	}
 
-	private void newShipment(String senderName, String recieverName, String TKtext, String telephoneText, String size1,
+	private String newShipment(String senderName, String recieverName, String TKtext, String telephoneText, String size1,
 			String size2, String size3) {
 		System.out.println(senderName);
 		BufferedWriter writer = null;
-		Random rand = new Random();
+		String barcode = barcodeGenerator();
 		try {
 			File orderFile = new File("apostoles.txt");
 			System.out.println(orderFile.getCanonicalPath());
 			writer = new BufferedWriter(new FileWriter(orderFile, true));
 			
-			String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
-			String month = Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
-			String day = Integer.toString(Calendar.getInstance().get(Calendar.DATE));
-			String hour = Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-			String minute = Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
-			String second = Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
-			int randomNumber = 1000 + rand.nextInt(9000);
-			
-			String barcode = year+month+day+hour+minute+second+randomNumber;
-			
-			writer.write(barcode + ","+ senderName + "," + recieverName + "," + TKtext + "," + telephoneText + "," + size1 + ","
-					+ size2 + "," + size3 );
+			writer.write(barcode + "," + senderName + "," + recieverName + "," + TKtext + "," + telephoneText + ","
+					+ size1 + "," + size2 + "," + size3);
 			System.out.println(barcode);
-			
+
 			writer.newLine();
 
 		} catch (Exception e) {
@@ -374,35 +366,69 @@ public class NewShipmentDialog extends JDialog {
 			} catch (Exception e) {
 			}
 		}
+		return barcode;
+		
 	}
-	
-	
-	private boolean validateInput(String senderName,String recieverName,String TKtext, String telephoneText, String size1,
-			String size2, String size3){
-		if(senderName != null && senderName.isEmpty()){
-		JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα αποστολέα");
-			return false;}
-		if (recieverName!= null && recieverName.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε όνομα παραλήπτη");
-			return false;}
-		if (TKtext!= null && TKtext.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε ταχυδρομικό κώδικα");
+
+	private String barcodeGenerator() {
+		// creates a unique searchcode/barcode for each order based on time
+		// values and a random number
+		Random rand = new Random();
+
+		String month = Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
+		String day = Integer.toString(Calendar.getInstance().get(Calendar.DATE));
+		String hour = Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+		String minute = Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
+		String second = Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
+		int randomNumber = 100 + rand.nextInt(900);
+
+		String barcode = "GR" + month + day + hour + minute + second + randomNumber;
+		if (barcode.length() < 14)
+			barcode = barcode + "0";
+		if (barcode.length() < 14)
+			barcode = barcode + "0";
+
+		return barcode;
+
+	}
+
+	private boolean validateInput(String senderName, String recieverName, String TKtext, String telephoneText,
+			String size1, String size2, String size3) {
+		if (senderName != null && senderName.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε όνομα αποστολέα");
 			return false;
 		}
-		if (telephoneText!= null && telephoneText.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε το τηλέφωνο επικοιωνίας");
+		if (recieverName != null && recieverName.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε όνομα παραλήπτη");
 			return false;
 		}
-		if (size1!= null && size1.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε μήκος δέματος");
+		if (TKtext != null && TKtext.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε ταχυδρομικό κώδικα");
 			return false;
 		}
-		if (size2!= null && size2.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε πλάτος δέματος");
+		//check if postcode is 5 characters
+		if (TKtext.length()!=5){
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε σωστό ταχυδρομικό κώδικα");
 			return false;
 		}
-		if (size3!= null && size3.isEmpty()){
-			JOptionPane.showMessageDialog(null,"Παρακαλώ συμπληρώστε ύψος δέματος");
+		if (telephoneText != null && telephoneText.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε το τηλέφωνο επικοιωνίας");
+			return false;
+		}
+		if (telephoneText.length() != 10) { // checks if phone number is 10 characters long
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε ένα σωστό τηλέφωνο επικοινωνίας");
+			return false;
+		}
+		if (size1 != null && size1.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε μήκος δέματος");
+			return false;
+		}
+		if (size2 != null && size2.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε πλάτος δέματος");
+			return false;
+		}
+		if (size3 != null && size3.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε ύψος δέματος");
 			return false;
 		}
 		return true;
