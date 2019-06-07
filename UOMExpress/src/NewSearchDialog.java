@@ -79,6 +79,7 @@ public class NewSearchDialog extends JDialog {
 		searchBarcodeField.setFont(new Font("Calibri", Font.BOLD, 35));
 		searchBarcodeField.setColumns(10);
 		JTextArea resultField = new JTextArea();
+		resultField.setFont(new Font("Calibri", Font.BOLD, 18));
 
 		JButton button = new JButton("");
 		button.setToolTipText("Αναζήτηση");
@@ -89,8 +90,8 @@ public class NewSearchDialog extends JDialog {
 					String[] resultArray = newSearch("C:/Users/argir/git/UoM-Express/UOMExpress/apostoles.txt", searchBarcodeField.getText(), searchPostCodeField.getText());
 					if(resultArray[0] != "ERROR"){  //if the returned array is NOT the "error" array then the result is shown in the textField 
 						
-						resultField.setText("Όνομα Αποστολέα: " + resultArray[1]+ "\nΌνομα Παραλήπτη: " + resultArray[2]
-								+ "\nΗμερομηνία άφιξης αποστολής: ");
+						resultField.setText("Όνομα Αποστολέα: \n" + resultArray[1]+ "\nΌνομα Παραλήπτη: \n" + resultArray[2]
+								+ "\nΗμερομηνία άφιξης αποστολής: \n");
 					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
