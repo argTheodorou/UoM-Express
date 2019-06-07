@@ -201,9 +201,9 @@ public class NewShipmentDialog extends JDialog {
 
 		
 		//creates the txt file that contains the capacity of the two available transfer methods
-		//first number will be the remaining size of the ship and the second for the airplane
+		//first number will be the  size of the ship and the second for the airplane
 		//numbers represent square centimeters to match user input dimensions that's going to be in centimeters
-		setCapacity("80000","600000");
+		setCapacity("800000000","60000000");
 		
 		
 		
@@ -232,7 +232,13 @@ public class NewShipmentDialog extends JDialog {
 			
 				if (inputIsCorrect){
 				try {
-					reduceCapacity("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt", size1Text.getText(), size2Text.getText(), size3Text.getText(), selectedShippingMethod);
+					if(reduceCapacity("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt", size1Text.getText(), size2Text.getText(), size3Text.getText(), 
+							selectedShippingMethod)){
+						
+						
+					}
+					else
+						inputIsCorrect = false;
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
@@ -383,7 +389,7 @@ public class NewShipmentDialog extends JDialog {
 	private String newShipment(String senderName, String recieverName, String TKtext, String telephoneText, String size1,
 			String size2, String size3, String selectedShippingMethod) throws FileNotFoundException {
 		BufferedWriter writer = null;
-		String barcode = barcodeGenerator();
+		String barcode = trackNumberGenerator();
 		try {
 			File orderFile = new File("apostoles.txt");
 			System.out.println(orderFile.getCanonicalPath());
@@ -419,10 +425,6 @@ public class NewShipmentDialog extends JDialog {
 			//our truck has a daily transfer capacity of 80 square meters and our plane has 600 square meters
 			capacityWriter.write(shipSize + "," + planeSize);
 			
-		
-
-		
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -434,7 +436,7 @@ public class NewShipmentDialog extends JDialog {
 		
 		
 	}
-	private void reduceCapacity(String fileName, String size1, String size2, String size3, String toBeReduced) throws FileNotFoundException{
+	private boolean reduceCapacity(String fileName, String size1, String size2, String size3, String toBeReduced) throws FileNotFoundException{
 		Scanner scan = new Scanner(new File(fileName));
 		String[] separatedByCommasMethod = null;
 		int meme = Integer.parseInt(size1)*Integer.parseInt(size2)*Integer.parseInt(size3);
@@ -445,10 +447,13 @@ public class NewShipmentDialog extends JDialog {
 				separatedByCommasMethod = line.split(",");  //pushes the selected line into an array.every String is put in a different field. starting at [0]
 				System.out.println(separatedByCommasMethod[0]);	
 				if (toBeReduced == "SH"){ 
-					if(Integer.parseInt(separatedByCommasMethod[0]) < meme)
+					System.out.println(Integer.parseInt(separatedByCommasMethod[0]));
+					System.out.println(meme);
+					if((Integer.parseInt(separatedByCommasMethod[0])) > meme)
 					{
 					separatedByCommasMethod[0] = String.valueOf(Integer.parseInt(separatedByCommasMethod[0]) - meme);
 					setCapacity(separatedByCommasMethod[0],separatedByCommasMethod[1]);
+					return true;
 					}
 					else 
 						JOptionPane.showMessageDialog(null, "ΜΕΤΑΦΟΡΙΚΟ ΜΕΣΟ ΓΕΜΑΤΟ, ΔΙΑΛΕΞΤΕ ΤΟ ΑΛΛΟ ΙΣΩΣ ΕΧΕΙ ΧΩΡΟ");
@@ -458,6 +463,7 @@ public class NewShipmentDialog extends JDialog {
 					{
 						separatedByCommasMethod[1] = String.valueOf(Integer.parseInt(separatedByCommasMethod[1]) - meme);
 						setCapacity(separatedByCommasMethod[0],separatedByCommasMethod[1]);
+						return true;
 					}
 					else 
 						JOptionPane.showMessageDialog(null, "ΜΕΤΑΦΟΡΙΚΟ ΜΕΣΟ ΓΕΜΑΤΟ, ΔΙΑΛΕΞΤΕ ΤΟ ΑΛΛΟ ΙΣΩΣ ΕΧΕΙ ΧΩΡΟ");
@@ -467,14 +473,15 @@ public class NewShipmentDialog extends JDialog {
 				}
 				
 			}
+		return false;
 		
 	
 
 	}
 
 
-	private String barcodeGenerator() {
-		// creates a unique searchcode/barcode for each order based on time
+	private String trackNumberGenerator() {
+		// creates a unique tracking number for each order based on time
 		// values and a random number
 		Random rand = new Random();
 
