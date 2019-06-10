@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
 
 public class NewSearchDialog extends JDialog {
 
@@ -79,6 +80,9 @@ public class NewSearchDialog extends JDialog {
 		searchBarcodeField.setFont(new Font("Calibri", Font.BOLD, 35));
 		searchBarcodeField.setColumns(10);
 		JTextArea resultField = new JTextArea();
+		resultField.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		resultField.setBackground(new Color(57, 62, 70));
+		resultField.setForeground(Color.WHITE);
 		resultField.setFont(new Font("Calibri", Font.BOLD, 18));
 
 		JButton button = new JButton("");
@@ -191,17 +195,19 @@ public class NewSearchDialog extends JDialog {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public String [] newSearch (String fileName, String code, String postCode) throws FileNotFoundException {
+	public String [] newSearch (String fileName, String trackingNumber, String postCode) throws FileNotFoundException {
 
 		Scanner scan = new Scanner(new File(fileName));
 		String [] separatedByCommasArray = null;
 		String [] notFound = {"ERROR"};
 		while (scan.hasNext()) {
 			String line = scan.nextLine().toString();
-			if (line.contains(code)) { //searches whole document by line if it contains the tracking number
+			if (line.contains(trackingNumber)) { //searches whole document line by line if it contains the tracking number
 			separatedByCommasArray = line.split(",");  //pushes the selected line into an array.every String is put in a different field. starting at [0]
-				if (separatedByCommasArray[3].contains(postCode))   //if the same line that contained the tracking number also contains the postCode
+				
+				if (separatedByCommasArray[3].equals(postCode)){   //if the same line that contained the tracking number also contains the postCode
 					return separatedByCommasArray; 					//the line gets returned as an array
+				}				
 			}
 		}
 		
