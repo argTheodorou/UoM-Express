@@ -90,8 +90,10 @@ public class NewSearchDialog extends JDialog {
 					String[] resultArray = newSearch("C:/Users/argir/git/UoM-Express/UOMExpress/apostoles.txt", searchBarcodeField.getText(), searchPostCodeField.getText());
 					if(resultArray[0] != "ERROR"){  //if the returned array is NOT the "error" array then the result is shown in the textField 
 						
-						resultField.setText("Όνομα Αποστολέα: \n" + resultArray[1]+ "\nΌνομα Παραλήπτη: \n" + resultArray[2]
-								+ "\nΗμερομηνία άφιξης αποστολής: \n");
+						resultField.setText("Όνομα Αποστολέα: \n" + resultArray[1]
+								+ "\nΌνομα Παραλήπτη: \n" + resultArray[2]
+								+ "\nΗμερομηνία άφιξης αποστολής: \n"+resultArray[9]
+								);
 					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
