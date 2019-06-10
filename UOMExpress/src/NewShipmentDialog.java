@@ -33,6 +33,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.Scanner;
@@ -180,7 +185,7 @@ public class NewShipmentDialog extends JDialog {
 		radioButtonPlane.setBackground(new Color(57, 62, 70));
 		buttonGroup_2.add(radioButtonPlane);
        
-		//the following lines of code enable the pictures above the radiobuttons to be clickable and change the values of the radiobuttons
+		//the following lines of code enable the pictures above the radiobuttons to be clickable and change the values of those radiobuttons
 		JLabel planePicture = new JLabel("");
 		planePicture.addMouseListener(new MouseAdapter() {
 			@Override
@@ -230,7 +235,7 @@ public class NewShipmentDialog extends JDialog {
 				inputIsCorrect = validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(),
 						telephoneText.getText(), size1Text.getText(), size2Text.getText(), size3Text.getText());
 			
-				if (inputIsCorrect){
+				if (inputIsCorrect){  	//checks if there is enough space in the selected transportation method.
 				try {
 					if(reduceCapacity("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt", size1Text.getText(), size2Text.getText(), size3Text.getText(), 
 							selectedShippingMethod)){
@@ -243,16 +248,17 @@ public class NewShipmentDialog extends JDialog {
 					e1.printStackTrace();
 				}
 				}
-				if (inputIsCorrect) {
-					String searchCode = null;
-					try {
-						searchCode = newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
+				
+				if (inputIsCorrect) {  //only if inputIsCorrect is STILL true, the shipping gets added to the list.
+					String trackingNumber = null;
+					try {   //newShipment saves the order in the file and returns the trackingNumber so it can be given to the user/customer. 
+						trackingNumber = newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
 								size1Text.getText(), size2Text.getText(), size3Text.getText(), selectedShippingMethod);
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
 					
-					//prints the "SUCCESS" message with the important data that was entered and the newly created searchCode
+					//prints the "SUCCESS" message with the important data that was entered and the newly created trackingNumber
 					JOptionPane.showMessageDialog(null,
 							        "ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " 
 									+ senderName.getText()
@@ -260,7 +266,7 @@ public class NewShipmentDialog extends JDialog {
 									+ "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
 									+ adressText.getText()
 									+ "\n ΚΩΔΙΚΟΣ ΑΝΑΖΗΤΗΣΗΣ: " 
-									+searchCode);
+									+trackingNumber);
 					dispose();
 				}
 
@@ -386,21 +392,49 @@ public class NewShipmentDialog extends JDialog {
 
 	}
 
+	
+	//newShipment is used after user's input has passed the capacity and the validation tests.
+	//here, the values given by the user get written in a .txt file.
+	//every new shipment order is written in its own line, so that search based on line can be done later on and by other classes/functions of the programm.
 	private String newShipment(String senderName, String recieverName, String TKtext, String telephoneText, String size1,
 			String size2, String size3, String selectedShippingMethod) throws FileNotFoundException {
 		BufferedWriter writer = null;
-		String barcode = trackNumberGenerator();
+		String barcode = trackNumberGenerator();	//gets the tracking number
 		try {
-			File orderFile = new File("apostoles.txt");
-			System.out.println(orderFile.getCanonicalPath());
-			writer = new BufferedWriter(new FileWriter(orderFile, true));
+			File orderFile = new File("apostoles.txt");			//creates the file for saving the orders. if it exists already, only new orders get added to it
+			System.out.println(orderFile.getCanonicalPath());		//shows the path of the file created in the console. might remove later
+			writer = new BufferedWriter(new FileWriter(orderFile, true));	
+			
+			
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			//Getting current date
+			Calendar cal = Calendar.getInstance();
+			//Displaying current date in the desired format
+			System.out.println("Current Date: "+sdf.format(cal.getTime()));
+			
+			if (selectedShippingMethod == "SH"){
+				//Number of Days to add
+			        cal.add(Calendar.DAY_OF_MONTH, 7);  
+			}
+			else
+			{
+				//Number of Days to add
+			        cal.add(Calendar.DAY_OF_MONTH, 3);  
+			}
+			//Date after adding the days to the current date
+			String dateOfArrival = sdf.format(cal.getTime());  
+			//Displaying the new Date after addition of Days to current date
+			System.out.println("Ημερομηνία άφιξης αποστολής: "+ dateOfArrival);
+				
+			
 			
 			writer.write(barcode + "," + senderName + "," + recieverName + "," + TKtext + "," + telephoneText + ","
-					+ size1 + "," + size2 + "," + size3 + "," + selectedShippingMethod );
+					+ size1 + "," + size2 + "," + size3 + "," + selectedShippingMethod + "," + dateOfArrival );
 			
-			System.out.println(barcode);
+			System.out.println(barcode);   
 
-			writer.newLine();
+			writer.newLine();  //new line here so that every order gets saved in its own line/
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -422,7 +456,6 @@ public class NewShipmentDialog extends JDialog {
 			File capacityFile = new File("capacity.txt");
 			System.out.println(capacityFile.getCanonicalPath());
 			capacityWriter = new PrintWriter(new FileWriter(capacityFile));
-			//our truck has a daily transfer capacity of 80 square meters and our plane has 600 square meters
 			capacityWriter.write(shipSize + "," + planeSize);
 			
 		} catch (Exception e) {
@@ -436,10 +469,15 @@ public class NewShipmentDialog extends JDialog {
 		
 		
 	}
+	
+	
+	//reduceCapacity: takes the 3 dimensions of the packet that the user wants to ship and checks if there is enough space left in the shipping method that was selected
+	//if capacity is enough, TRUE is returned and the size of the remaining space in the shipping method gets reduced accordingly.
+	//if there is not enough space, the user gets to chose the other shipping method instead or abandon the process entirely.
 	private boolean reduceCapacity(String fileName, String size1, String size2, String size3, String toBeReduced) throws FileNotFoundException{
 		Scanner scan = new Scanner(new File(fileName));
 		String[] separatedByCommasMethod = null;
-		int meme = Integer.parseInt(size1)*Integer.parseInt(size2)*Integer.parseInt(size3);
+		int packetSizeInVolume = Integer.parseInt(size1)*Integer.parseInt(size2)*Integer.parseInt(size3);
 		
 		while (scan.hasNext()) {
 		 
@@ -448,10 +486,10 @@ public class NewShipmentDialog extends JDialog {
 				System.out.println(separatedByCommasMethod[0]);	
 				if (toBeReduced == "SH"){ 
 					System.out.println(Integer.parseInt(separatedByCommasMethod[0]));
-					System.out.println(meme);
-					if((Integer.parseInt(separatedByCommasMethod[0])) > meme)
+					System.out.println(packetSizeInVolume);
+					if((Integer.parseInt(separatedByCommasMethod[0])) > packetSizeInVolume)
 					{
-					separatedByCommasMethod[0] = String.valueOf(Integer.parseInt(separatedByCommasMethod[0]) - meme);
+					separatedByCommasMethod[0] = String.valueOf(Integer.parseInt(separatedByCommasMethod[0]) - packetSizeInVolume);
 					setCapacity(separatedByCommasMethod[0],separatedByCommasMethod[1]);
 					return true;
 					}
@@ -459,9 +497,9 @@ public class NewShipmentDialog extends JDialog {
 						JOptionPane.showMessageDialog(null, "ΜΕΤΑΦΟΡΙΚΟ ΜΕΣΟ ΓΕΜΑΤΟ, ΔΙΑΛΕΞΤΕ ΤΟ ΑΛΛΟ ΙΣΩΣ ΕΧΕΙ ΧΩΡΟ");
 				}
 				else{
-					if((Integer.parseInt(separatedByCommasMethod[1]) - meme) > 0)
+					if((Integer.parseInt(separatedByCommasMethod[1]) - packetSizeInVolume) > 0)
 					{
-						separatedByCommasMethod[1] = String.valueOf(Integer.parseInt(separatedByCommasMethod[1]) - meme);
+						separatedByCommasMethod[1] = String.valueOf(Integer.parseInt(separatedByCommasMethod[1]) - packetSizeInVolume);
 						setCapacity(separatedByCommasMethod[0],separatedByCommasMethod[1]);
 						return true;
 					}
@@ -481,8 +519,8 @@ public class NewShipmentDialog extends JDialog {
 
 
 	private String trackNumberGenerator() {
-		// creates a unique tracking number for each order based on time
-		// values and a random number
+		// creates a unique tracking number for each order based on time values and a random number at the end.
+		
 		Random rand = new Random();
 
 		String month = Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
@@ -507,6 +545,10 @@ public class NewShipmentDialog extends JDialog {
 
 	}
 
+	//validates the input that was given by the user, so that no field was left empty and some more specific values were given for example the correct length of 
+	//phone numbers and post codes.
+	
+	//further checks might get added later 
 	private boolean validateInput(String senderName, String recieverName, String TKtext, String telephoneText,
 			String size1, String size2, String size3) {
 		if (senderName != null && senderName.isEmpty()) {
@@ -521,7 +563,7 @@ public class NewShipmentDialog extends JDialog {
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε ταχυδρομικό κώδικα");
 			return false;
 		}
-		//check if postcode is 5 characters
+		//check if postcode is 5 characters long
 		if (TKtext.length()!=5){
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε σωστό ταχυδρομικό κώδικα");
 			return false;
