@@ -49,22 +49,14 @@ import java.awt.Toolkit;
 public class NewShipmentDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField senderName;
-	private JTextField recieverName;
-	private JTextField adressText;
-	private JTextField TKtext;
+	private JTextField senderNameField;
+	private JTextField recieverNameField;
+	private JTextField adressTextField;
+	private JTextField postCodeTextField;
 	private JTextField telephoneText;
-	private JTextField size1Text;
-	private JTextField size2Text;
-	private JTextField size3Text;
+	private JTextField size1TextField;
+	private JTextField size2TextField;
+	private JTextField size3TextField;
 
 	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
 
@@ -101,9 +93,9 @@ public class NewShipmentDialog extends JDialog {
 								.addComponent(label_12, GroupLayout.PREFERRED_SIZE, 440, GroupLayout.PREFERRED_SIZE))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-		JLabel label = new JLabel("ΦΟΡΜΑ ΝΕΑΣ ΑΠΟΣΤΟΛΗΣ");
-		label.setFont(new Font("Calibri", Font.BOLD, 22));
-		label.setForeground(Color.WHITE);
+		JLabel titleLabel = new JLabel("ΦΟΡΜΑ ΝΕΑΣ ΑΠΟΣΤΟΛΗΣ");
+		titleLabel.setFont(new Font("Calibri", Font.BOLD, 22));
+		titleLabel.setForeground(Color.WHITE);
 
 		JLabel label_1 = new JLabel("Από");
 		label_1.setForeground(Color.WHITE);
@@ -113,29 +105,29 @@ public class NewShipmentDialog extends JDialog {
 		label_2.setForeground(Color.WHITE);
 		label_2.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		JLabel label_3 = new JLabel("Όνομα αποστολέα");
-		label_3.setForeground(Color.WHITE);
-		label_3.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel senderNameLabel = new JLabel("Όνομα αποστολέα");
+		senderNameLabel.setForeground(Color.WHITE);
+		senderNameLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		JLabel label_4 = new JLabel("Όνομα παραλήπτη");
-		label_4.setForeground(Color.WHITE);
-		label_4.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel recieverNameLabel = new JLabel("Όνομα παραλήπτη");
+		recieverNameLabel.setForeground(Color.WHITE);
+		recieverNameLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		JLabel label_5 = new JLabel("Δ/ση παραλήπτη");
-		label_5.setForeground(Color.WHITE);
-		label_5.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel adressLabel = new JLabel("Δ/ση παραλήπτη");
+		adressLabel.setForeground(Color.WHITE);
+		adressLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		JLabel label_6 = new JLabel("Ταχυδρ. Κώδικας");
-		label_6.setForeground(Color.WHITE);
-		label_6.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel postCodeLabel = new JLabel("Ταχυδρ. Κώδικας");
+		postCodeLabel.setForeground(Color.WHITE);
+		postCodeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		JLabel label_7 = new JLabel("Τηλέφωνο");
-		label_7.setForeground(Color.WHITE);
-		label_7.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel telephoneLabel = new JLabel("Τηλέφωνο");
+		telephoneLabel.setForeground(Color.WHITE);
+		telephoneLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		JLabel label_8 = new JLabel("Διαστάσεις");
-		label_8.setForeground(Color.WHITE);
-		label_8.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel dimensionsLabel = new JLabel("Διαστάσεις");
+		dimensionsLabel.setForeground(Color.WHITE);
+		dimensionsLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Θεσσαλονίκη" }));
@@ -143,38 +135,38 @@ public class NewShipmentDialog extends JDialog {
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "Αθήνα" }));
 
-		senderName = new JTextField();
-		senderName.setFont(new Font("Calibri", Font.BOLD, 14));
-		senderName.setColumns(10);
+		senderNameField = new JTextField();
+		senderNameField.setFont(new Font("Calibri", Font.BOLD, 14));
+		senderNameField.setColumns(10);
 
-		recieverName = new JTextField();
-		recieverName.setFont(new Font("Calibri", Font.BOLD, 14));
-		recieverName.setColumns(10);
+		recieverNameField = new JTextField();
+		recieverNameField.setFont(new Font("Calibri", Font.BOLD, 14));
+		recieverNameField.setColumns(10);
 
-		adressText = new JTextField();
-		adressText.setFont(new Font("Calibri", Font.BOLD, 14));
-		adressText.setColumns(10);
+		adressTextField = new JTextField();
+		adressTextField.setFont(new Font("Calibri", Font.BOLD, 14));
+		adressTextField.setColumns(10);
 
-		TKtext = new JTextField();
-		TKtext.setFont(new Font("Calibri", Font.BOLD, 14));
-		TKtext.setColumns(10);
+		postCodeTextField = new JTextField();
+		postCodeTextField.setFont(new Font("Calibri", Font.BOLD, 14));
+		postCodeTextField.setColumns(10);
 
 		telephoneText = new JTextField();
 		telephoneText.setFont(new Font("Calibri", Font.BOLD, 14));
 		telephoneText.setColumns(10);
 
-		size1Text = new JTextField();
-		size1Text.setColumns(10);
+		size1TextField = new JTextField();
+		size1TextField.setColumns(10);
 
-		size2Text = new JTextField();
-		size2Text.setColumns(10);
+		size2TextField = new JTextField();
+		size2TextField.setColumns(10);
 
-		size3Text = new JTextField();
-		size3Text.setColumns(10);
+		size3TextField = new JTextField();
+		size3TextField.setColumns(10);
 
-		JLabel label_9 = new JLabel("Μέσο αποστολής");
-		label_9.setForeground(Color.WHITE);
-		label_9.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel shippingMethodLabel = new JLabel("Μέσο αποστολής");
+		shippingMethodLabel.setForeground(Color.WHITE);
+		shippingMethodLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 
 		JRadioButton radioButtonShip = new JRadioButton("");
 		radioButtonShip.setSelected(true);
@@ -206,15 +198,15 @@ public class NewShipmentDialog extends JDialog {
 
 		
 		//creates the txt file that contains the capacity of the two available transfer methods
+		//only creates the file if it doesnt exist already.
 		//first number will be the  size of the ship and the second for the airplane
 		//numbers represent square centimeters to match user input dimensions that's going to be in centimeters
-		setCapacity("800000000","60000000");
+		File f = new File("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt");
+		if(!(f.exists() && !f.isDirectory())) 
+			setCapacity("800000000","60000000");
 		
-		
-		
-		
-		
-		
+	
+
 		
 		
 		JButton button = new JButton("");
@@ -232,12 +224,12 @@ public class NewShipmentDialog extends JDialog {
 				// IF INPUT IS VALIDATED AND RESULT OF TEST IS TRUE, THEN THE
 				// ORDER IS PROCESSED AND ADDED TO THE LIST
 				boolean inputIsCorrect = true;
-				inputIsCorrect = validateInput(senderName.getText(), recieverName.getText(), TKtext.getText(),
-						telephoneText.getText(), size1Text.getText(), size2Text.getText(), size3Text.getText());
+				inputIsCorrect = validateInput(senderNameField.getText(), recieverNameField.getText(), postCodeTextField.getText(),
+						telephoneText.getText(), size1TextField.getText(), size2TextField.getText(), size3TextField.getText());
 			
 				if (inputIsCorrect){  	//checks if there is enough space in the selected transportation method.
 				try {
-					if(reduceCapacity("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt", size1Text.getText(), size2Text.getText(), size3Text.getText(), 
+					if(reduceCapacity("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt", size1TextField.getText(), size2TextField.getText(), size3TextField.getText(), 
 							selectedShippingMethod)){
 						
 						
@@ -252,8 +244,8 @@ public class NewShipmentDialog extends JDialog {
 				if (inputIsCorrect) {  //only if inputIsCorrect is STILL true, the shipping gets added to the list.
 					String trackingNumber = null;
 					try {   //newShipment saves the order in the file and returns the trackingNumber so it can be given to the user/customer. 
-						trackingNumber = newShipment(senderName.getText(), recieverName.getText(), TKtext.getText(), telephoneText.getText(),
-								size1Text.getText(), size2Text.getText(), size3Text.getText(), selectedShippingMethod);
+						trackingNumber = newShipment(senderNameField.getText(), recieverNameField.getText(), postCodeTextField.getText(), telephoneText.getText(),
+								size1TextField.getText(), size2TextField.getText(), size3TextField.getText(), selectedShippingMethod);
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
@@ -261,10 +253,10 @@ public class NewShipmentDialog extends JDialog {
 					//prints the "SUCCESS" message with the important data that was entered and the newly created trackingNumber
 					JOptionPane.showMessageDialog(null,
 							        "ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " 
-									+ senderName.getText()
-									+ " \n ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ:" + recieverName.getText() 
+									+ senderNameField.getText()
+									+ " \n ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ:" + recieverNameField.getText() 
 									+ "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
-									+ adressText.getText()
+									+ adressTextField.getText()
 									+ "\n ΚΩΔΙΚΟΣ ΑΝΑΖΗΤΗΣΗΣ: " 
 									+trackingNumber);
 					dispose();
@@ -273,6 +265,13 @@ public class NewShipmentDialog extends JDialog {
 			}
 
 		});
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+											//DIALOG FORMATING SECTION START
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		button.setIcon(new ImageIcon(NewShipmentDialog.class.getResource("/pics/box.png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
@@ -280,7 +279,7 @@ public class NewShipmentDialog extends JDialog {
 				.addGroup(gl_panel.createSequentialGroup().addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(
 								gl_panel.createSequentialGroup().addGap(54).addComponent(
-										label, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
+										titleLabel, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup().addGap(22).addGroup(gl_panel
 								.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_panel.createSequentialGroup().addComponent(label_1)
@@ -291,26 +290,26 @@ public class NewShipmentDialog extends JDialog {
 										.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 128,
 												GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 141,
+										.addComponent(adressLabel, GroupLayout.PREFERRED_SIZE, 141,
 												GroupLayout.PREFERRED_SIZE)
-										.addGap(18).addComponent(adressText, GroupLayout.PREFERRED_SIZE, 196,
+										.addGap(18).addComponent(adressTextField, GroupLayout.PREFERRED_SIZE, 196,
 												GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 141,
+										.addComponent(postCodeLabel, GroupLayout.PREFERRED_SIZE, 141,
 												GroupLayout.PREFERRED_SIZE)
-										.addGap(18).addComponent(TKtext, GroupLayout.PREFERRED_SIZE, 196,
+										.addGap(18).addComponent(postCodeTextField, GroupLayout.PREFERRED_SIZE, 196,
 												GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 141,
+										.addComponent(telephoneLabel, GroupLayout.PREFERRED_SIZE, 141,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(18).addComponent(telephoneText, GroupLayout.PREFERRED_SIZE, 196,
 												GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup().addComponent(label_4)
+								.addGroup(gl_panel.createSequentialGroup().addComponent(recieverNameLabel)
 										.addPreferredGap(ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-										.addComponent(recieverName, GroupLayout.PREFERRED_SIZE, 196,
+										.addComponent(recieverNameField, GroupLayout.PREFERRED_SIZE, 196,
 												GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup().addComponent(label_3).addGap(18)
-										.addComponent(senderName, GroupLayout.PREFERRED_SIZE, 196,
+								.addGroup(gl_panel.createSequentialGroup().addComponent(senderNameLabel).addGap(18)
+										.addComponent(senderNameField, GroupLayout.PREFERRED_SIZE, 196,
 												GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup().addGroup(gl_panel
 										.createParallelGroup(Alignment.TRAILING)
@@ -320,13 +319,13 @@ public class NewShipmentDialog extends JDialog {
 														.addPreferredGap(ComponentPlacement.RELATED, 36,
 																Short.MAX_VALUE)
 														.addComponent(planePicture).addGap(14))
-										.addGroup(gl_panel.createSequentialGroup().addComponent(label_8)
+										.addGroup(gl_panel.createSequentialGroup().addComponent(dimensionsLabel)
 												.addPreferredGap(ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-												.addComponent(size1Text, GroupLayout.PREFERRED_SIZE, 53,
+												.addComponent(size1TextField, GroupLayout.PREFERRED_SIZE, 53,
 														GroupLayout.PREFERRED_SIZE)
-												.addGap(18).addComponent(size2Text, GroupLayout.PREFERRED_SIZE, 53,
+												.addGap(18).addComponent(size2TextField, GroupLayout.PREFERRED_SIZE, 53,
 														GroupLayout.PREFERRED_SIZE)))
-										.addGap(18).addComponent(size3Text, GroupLayout.PREFERRED_SIZE, 53,
+										.addGap(18).addComponent(size3TextField, GroupLayout.PREFERRED_SIZE, 53,
 												GroupLayout.PREFERRED_SIZE))
 								.addComponent(button, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 337,
 										GroupLayout.PREFERRED_SIZE)))
@@ -335,10 +334,10 @@ public class NewShipmentDialog extends JDialog {
 										GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap())
 				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup().addContainerGap(128, Short.MAX_VALUE)
-						.addComponent(label_9).addGap(127)));
+						.addComponent(shippingMethodLabel).addGap(127)));
 		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup().addContainerGap()
-						.addComponent(label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+						.addComponent(titleLabel, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
@@ -347,36 +346,36 @@ public class NewShipmentDialog extends JDialog {
 								.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(senderName, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+								.addComponent(senderNameLabel, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+								.addComponent(senderNameField, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(recieverName, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+								.addComponent(recieverNameLabel, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+								.addComponent(recieverNameField, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(label_5, GroupLayout.PREFERRED_SIZE, 22,
+								.addComponent(adressLabel, GroupLayout.PREFERRED_SIZE, 22,
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(adressText, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								.addComponent(adressTextField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(label_6, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(TKtext, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								.addComponent(postCodeLabel, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+								.addComponent(postCodeTextField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(
 								gl_panel.createParallelGroup(Alignment.BASELINE)
-										.addComponent(label_7, GroupLayout.PREFERRED_SIZE, 22,
+										.addComponent(telephoneLabel, GroupLayout.PREFERRED_SIZE, 22,
 												GroupLayout.PREFERRED_SIZE)
 										.addComponent(telephoneText, GroupLayout.PREFERRED_SIZE, 21,
 												GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(label_8, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(size3Text, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(size2Text, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(size1Text, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								.addComponent(dimensionsLabel, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+								.addComponent(size3TextField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+								.addComponent(size2TextField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+								.addComponent(size1TextField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(label_9, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addComponent(shippingMethodLabel, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING).addComponent(shipPicture)
 								.addComponent(planePicture))
@@ -391,6 +390,12 @@ public class NewShipmentDialog extends JDialog {
 		contentPanel.setLayout(gl_contentPanel);
 
 	}
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+														//DIALOG FORMATING SECTION FINISH
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
 	//newShipment is used after user's input has passed the capacity and the validation tests.
