@@ -31,8 +31,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -59,8 +65,9 @@ public class NewShipmentDialog extends JDialog {
 	private JTextField size3TextField;
 
 	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
+	
 
-	public NewShipmentDialog() {
+	public NewShipmentDialog() throws IOException {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewShipmentDialog.class.getResource("/pics/box.png")));
 
@@ -203,7 +210,10 @@ public class NewShipmentDialog extends JDialog {
 		//numbers represent square centimeters to match user input dimensions that's going to be in centimeters
 		File f = new File("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt");
 		if(!(f.exists() && !f.isDirectory())) 
-			setCapacity("800000000","60000000");
+			setCapacity("820000","3500000");
+	
+
+		
 		
 	
 
