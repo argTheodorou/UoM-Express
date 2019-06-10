@@ -15,6 +15,7 @@ import java.awt.Toolkit;
 import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -93,7 +94,13 @@ public class MainMenu {
 		newPacketbtn.setBackground(new Color(0, 173, 181));
 		newPacketbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewShipmentDialog dial = new NewShipmentDialog();
+				NewShipmentDialog dial = null;
+				try {
+					dial = new NewShipmentDialog();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				dial.setVisible(true);
 
 			}
@@ -128,7 +135,13 @@ public class MainMenu {
 		completnessButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				NewCompletenessDialog completnessDial = new NewCompletenessDialog();
+				NewCompletenessDialog completnessDial = null;
+				try {
+					completnessDial = new NewCompletenessDialog();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				completnessDial.setVisible(true);
 			}
 		});
