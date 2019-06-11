@@ -408,7 +408,7 @@ public class NewShipmentDialog extends JDialog {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
-	//newShipment is used after user's input has passed the capacity and the validation tests.
+	//newShipment is used after the User's input has passed the capacity and the validation tests.
 	//here, the values given by the user get written in a .txt file.
 	//every new shipment order is written in its own line, so that search based on line can be done later on and by other classes/functions of the programm.
 	private String newShipment(String senderName, String recieverName, String TKtext, String telephoneText, String size1,
@@ -554,7 +554,8 @@ public class NewShipmentDialog extends JDialog {
 			barcode = barcode + "0";
 		if (barcode.length() < 14)
 			barcode = barcode + "0";
-		
+		//ελέγχει αν ο κωδικός αναζήτησης είναι 14 ψηφία γιατί π.χ. 14 του μήνα είναι 2 ψηφία ενώ 4 του μήνα είναι 1 ψηφίο.
+		//το ίδιο για τα λεπτά της ώρας που είναι είτε 0-9 και μετά 10-59 2 ψηφία.
 	
 		return barcode;
 
@@ -594,6 +595,11 @@ public class NewShipmentDialog extends JDialog {
 		if (size1 != null && size1.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε μήκος δέματος");
 			return false;
+		}
+			if (Integer.parseInt(size1) > 100 || Integer.parseInt(size2) > 100 || Integer.parseInt(size3) > 100) {
+			JOptionPane.showMessageDialog(null, "Οι διαστάσεις δέματος είναι πολύ μεγάλες");  //checks if packet is too big (limit here is 100x100x100 centimeters)
+			return false;
+			
 		}
 		if (size2 != null && size2.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε πλάτος δέματος");
