@@ -91,7 +91,7 @@ public class NewSearchDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {        
 				             
 				try {
-					String[] resultArray = newSearch("C:/Users/argir/git/UoM-Express/UOMExpress/apostoles.txt", searchBarcodeField.getText(), searchPostCodeField.getText());
+					String[] resultArray = newSearch("src/textFiles/apostoles.txt", searchBarcodeField.getText(), searchPostCodeField.getText());
 					if(resultArray[0] != "ERROR"){  //if the returned array is NOT the "error" array then the result is shown in the textField 
 						
 						resultField.setText("Όνομα Αποστολέα: \n" + resultArray[1]
