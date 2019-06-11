@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
@@ -87,37 +88,47 @@ public class NewCompletenessDialog extends JDialog {
 		});
 
 		button_1.setFont(new Font("Calibri", Font.BOLD, 18));
-		spaceUsedTable  = getSpaceUsed("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt");
+		spaceUsedTable  = getSpaceUsed("src/textFiles/capacity.txt");
 		//calculating the numbers that the user will get to see
-		double missingShipSpace = 820000 - (Double.parseDouble(spaceUsedTable[0])) ;  
+		double missingShipSpace = 8200000 - (Double.parseDouble(spaceUsedTable[0])) ;  
 		//calculates the space that has been already booked by packages on the SHIP
-		double remainingShipPercentage = (1- (missingShipSpace / 820000))*100;  
+		double remainingShipPercentage = (1- (missingShipSpace / 8200000))*100;  
 		//makes a percentage out of it
 	
-		double missingPlaneSpace = 3500000 - (Double.parseDouble(spaceUsedTable[1])) ; 
+		double missingPlaneSpace = 35000000 - (Double.parseDouble(spaceUsedTable[1])) ; 
 		//calculates the space that has been already booked by packages on the PLANE
-		double remainingPlanePercentage = (1- (missingPlaneSpace / 3500000))*100;  
+		double remainingPlanePercentage =  ((1- (missingPlaneSpace / 35000000))*100);  
 		//makes a percentage out of it
 		
 		
-		capacityFieldShip.setText("Χώρος που απομένει στο πλοίο: \n" 
-				+ ((820000-missingShipSpace)/100) + " κυβικά μέτρα"
-				+ "  ποσοστό: " + remainingShipPercentage 
+		capacityFieldShip.setText("Απομένουν: \n" 
+				+ String.format("%.2f",((8200000-missingShipSpace)/1000000))
+				+ " κυβικά μέτρα\n"
+				+ String.format("%.2f", remainingShipPercentage) + "%"
 				
 				);
 		
-		capacityFieldPlane.setText("Χώρος που απομένει στο αεροπλάνο: \n");
+		capacityFieldPlane.setText("Απομένουν: \n" 
+				+   String.format("%.2f",(35000000-missingPlaneSpace)/1000000)
+				+ " κυβικά μέτρα\n" 
+				+ String.format("%.2f", remainingPlanePercentage) + "%");
+		
+		
 		
 		
 		
 		System.out.println(remainingShipPercentage );
 		System.out.println(remainingPlanePercentage);
 
-		JLabel shipPic = new JLabel("");
-		shipPic.setIcon(new ImageIcon(NewCompletenessDialog.class.getResource("/pics/plane 120x120 100%.png")));
+		JLabel shipPicture = new JLabel("");
+		
 
-		JLabel planePic = new JLabel("");
-		planePic.setIcon(new ImageIcon(NewCompletenessDialog.class.getResource("/pics/plane 120x120 100%.png")));
+		JLabel planePicture = new JLabel("");
+
+		
+		
+		shipPicture.setIcon(new ImageIcon(NewCompletenessDialog.class.getResource(getShipImage(remainingShipPercentage))));
+		planePicture.setIcon(new ImageIcon(NewCompletenessDialog.class.getResource(getPlaneImage(remainingPlanePercentage))));
 		
 		
 		capacityFieldShip.setForeground(Color.WHITE);
@@ -145,9 +156,9 @@ public class NewCompletenessDialog extends JDialog {
 					.addGap(33))
 				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 					.addGap(36)
-					.addComponent(shipPic)
+					.addComponent(shipPicture)
 					.addGap(52)
-					.addComponent(planePic)
+					.addComponent(planePicture)
 					.addContainerGap(58, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
@@ -157,8 +168,8 @@ public class NewCompletenessDialog extends JDialog {
 					.addComponent(label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(planePic, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(shipPic))
+						.addComponent(planePicture, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(shipPicture))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(capacityFieldShip, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
@@ -172,6 +183,32 @@ public class NewCompletenessDialog extends JDialog {
 	}
 
 	
+
+
+	private String getShipImage(double remainingShipPercentage) {
+			if (remainingShipPercentage > 1 && remainingShipPercentage <25)
+				return ("/pics/ship 120x120 25%.png");
+			else if(remainingShipPercentage >26 && remainingShipPercentage <75)
+				return ("/pics/ship 120x120 50%.png");
+			else if(remainingShipPercentage >76 && remainingShipPercentage <99)
+				return ("/pics/ship 120x120 75%.png");
+			
+			
+		return ("/pics/ship 120x120 100%.png");
+	}
+
+	private String getPlaneImage(double remainingPlanePercentage) {
+		if (remainingPlanePercentage >0 && remainingPlanePercentage <25)
+			return ("/pics/plane 120x120 25%.png");
+		else if(remainingPlanePercentage >26 && remainingPlanePercentage <75)
+			return ("/pics/plane 120x120 50%.png");
+		else if(remainingPlanePercentage >76 && remainingPlanePercentage <99)
+			return ("/pics/plane 120x120 75%.png");
+		
+	return ("/pics/plane 120x120 100%.png");
+	}
+
+
 	//returns a table with the remainder of the available space in our shipping methods
 	private String[] getSpaceUsed(String fileName) throws FileNotFoundException {
 
