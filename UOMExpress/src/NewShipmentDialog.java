@@ -208,9 +208,9 @@ public class NewShipmentDialog extends JDialog {
 		//only creates the file if it doesnt exist already.
 		//first number will be the  size of the ship and the second for the airplane
 		//numbers represent square centimeters to match user input dimensions that's going to be in centimeters
-		File f = new File("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt");
+		File f = new File("src/textFiles","capacity.txt");
 		if(!(f.exists() && !f.isDirectory())) 
-			setCapacity("820000","3500000");
+			setCapacity("8200000","35000000");
 	
 
 		
@@ -416,7 +416,7 @@ public class NewShipmentDialog extends JDialog {
 		BufferedWriter writer = null;
 		String barcode = trackNumberGenerator();	//gets the tracking number
 		try {
-			File orderFile = new File("apostoles.txt");			//creates the file for saving the orders. if it exists already, only new orders get added to it
+			File orderFile = new File("src/textFiles","apostoles.txt");			//creates the file for saving the orders. if it exists already, only new orders get added to it
 			System.out.println(orderFile.getCanonicalPath());		//shows the path of the file created in the console. might remove later
 			writer = new BufferedWriter(new FileWriter(orderFile, true));	
 			
@@ -465,10 +465,10 @@ public class NewShipmentDialog extends JDialog {
 	}
 	
 	
-	private void setCapacity(String shipSize, String planeSize) {
+	public void setCapacity(String shipSize, String planeSize) {
 		PrintWriter capacityWriter = null;
 		try {
-			File capacityFile = new File("capacity.txt");
+			File capacityFile = new File("src/textFiles","capacity.txt");
 			System.out.println(capacityFile.getCanonicalPath());
 			capacityWriter = new PrintWriter(new FileWriter(capacityFile));
 			capacityWriter.write(shipSize + "," + planeSize);
