@@ -83,7 +83,7 @@ public class NewSearchDialog extends JDialog {
 		resultField.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		resultField.setBackground(new Color(57, 62, 70));
 		resultField.setForeground(Color.WHITE);
-		resultField.setFont(new Font("Calibri", Font.BOLD, 18));
+		resultField.setFont(new Font("Calibri", Font.BOLD, 18)); 
 
 		JButton button = new JButton("");
 		button.setToolTipText("Αναζήτηση");

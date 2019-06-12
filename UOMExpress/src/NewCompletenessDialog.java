@@ -179,7 +179,7 @@ public class NewCompletenessDialog extends JDialog {
 		);
 		panel.setLayout(gl_panel);
 		contentPanel1.setLayout(gl_contentPanel);
-	}
+	} 
 
 	
 

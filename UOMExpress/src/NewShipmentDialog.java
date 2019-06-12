@@ -125,12 +125,16 @@ public class NewShipmentDialog extends JDialog {
 		JLabel dimensionsLabel = new JLabel("Διαστάσεις");
 		dimensionsLabel.setForeground(Color.WHITE);
 		dimensionsLabel.setFont(new Font("Calibri", Font.BOLD, 18));
-
+			
+		//έχει εξηγηθεί στην αναφορά επισκόπησης η μη-αξιοποίηση των 2 αυτών combobox.
+		//έμειναν μέσα επίτηδες για χρήση τους στο μέλλον
+		//όπου το πρόγραμμα θα αποστέλνει πακέτα στο εξωτερικό και η χρέωση θα είναι διαφορετική ανα χώρα (άρα ανά combobox επιλογή)
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Θεσσαλονίκη" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Ελλάδα" }));
 
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "Αθήνα" }));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "Ελλάδα" } ));
+		
 
 		senderNameField = new JTextField();
 		senderNameField.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -214,7 +218,7 @@ public class NewShipmentDialog extends JDialog {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				//saves the selected radiobutton to a string that is later saved in the shippings list
+				//saves the selected radiobutton to a string that is later saved in apostoles.txt list
 				String selectedShippingMethod;
 				if (radioButtonPlane.isSelected())
 					selectedShippingMethod = "PL";
@@ -227,11 +231,11 @@ public class NewShipmentDialog extends JDialog {
 				inputIsCorrect = validateInput(senderNameField.getText(), recieverNameField.getText(), postCodeTextField.getText(),
 						telephoneText.getText(), size1TextField.getText(), size2TextField.getText(), size3TextField.getText());
 			
-				if (inputIsCorrect){  	//checks if there is enough space in the selected transportation method.
+				if (inputIsCorrect){  	
 				try {
 					if(reduceCapacity("src/textFiles/capacity.txt", size1TextField.getText(), size2TextField.getText(), size3TextField.getText(), 
 							selectedShippingMethod)){
-						
+						//checks if there is enough space in the selected transportation method.
 						
 					}
 					else
@@ -533,19 +537,19 @@ public class NewShipmentDialog extends JDialog {
 		String second = Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
 		int randomNumber = 100 + rand.nextInt(900);
 
-		String barcode = "GR" + month + day + hour + minute + second + randomNumber;
-		if (barcode.length() < 14)
-			barcode = barcode + "0";
-		if (barcode.length() < 14)
-			barcode = barcode + "0";
-		if (barcode.length() < 14)
-			barcode = barcode + "0";
-		if (barcode.length() < 14)
-			barcode = barcode + "0";
+		String trackNumber = "GR" + month + day + hour + minute + second + randomNumber;
+		if (trackNumber.length() < 14)
+			trackNumber = trackNumber + "0";
+		if (trackNumber.length() < 14)
+			trackNumber = trackNumber + "0";
+		if (trackNumber.length() < 14)
+			trackNumber = trackNumber + "0";
+		if (trackNumber.length() < 14)
+			trackNumber = trackNumber + "0";
 		//ελέγχει αν ο κωδικός αναζήτησης είναι 14 ψηφία γιατί π.χ. 14 του μήνα είναι 2 ψηφία ενώ 4 του μήνα είναι 1 ψηφίο.
 		//το ίδιο για τα λεπτά της ώρας που είναι είτε 0-9 και μετά 10-59 2 ψηφία.
 	
-		return barcode;
+		return trackNumber;
 
 	}
 
@@ -558,7 +562,7 @@ public class NewShipmentDialog extends JDialog {
 		if (senderName != null && senderName.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε όνομα αποστολέα");
 			return false;
-		}
+		} 
 		if (recieverName != null && recieverName.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε όνομα παραλήπτη");
 			return false;
@@ -584,8 +588,8 @@ public class NewShipmentDialog extends JDialog {
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε μήκος δέματος");
 			return false;
 		}
-			if (Integer.parseInt(size1) > 500 || Integer.parseInt(size2) > 100 || Integer.parseInt(size3) > 100) {
-			JOptionPane.showMessageDialog(null, "Οι διαστάσεις δέματος είναι πολύ μεγάλες");  //checks if packet is too big (limit here is 100x100x100 centimeters)
+			if (Integer.parseInt(size1) > 200 || Integer.parseInt(size2) > 200 || Integer.parseInt(size3) > 200) {
+			JOptionPane.showMessageDialog(null, "Οι διαστάσεις δέματος είναι πολύ μεγάλες");  //checks if packet is too big (limit here is 200x200x200centimeters)
 			return false;
 			
 		}

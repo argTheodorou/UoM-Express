@@ -1,14 +1,13 @@
-//Οι αποστολές θα έπρεπε να είναι αντικείμενα κλάσεων που θα δημιουργόντουσαν από μια κλάση-εντολέα.
-//Επίσης τα 2 μεταφορικά μέσα θα έπρεπε να είναι αντικείμενα.
-//Έτσι όπως είναι γραμμένος ο κώδικας μοιάζει πιο πολύ με με διαδικασιακό προγραμματισμό παρά με αντικειμενοστρεφή.
+//Έτσι όπως είναι κακό-γραμμένος ο κώδικας μοιάζει πιο πολύ με με διαδικασιακό προγραμματισμό παρά με αντικειμενοστρεφή.
 //Γράγτηκε όμως με μεράκι and it somehow works.
+
 
 //Προγραμματισμός: Αργύρης Θεοδώρου, dai16273
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 import java.awt.Color;
@@ -79,7 +78,7 @@ public class MainMenu {
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				} 
 				dial.setVisible(true);
 
 			}
@@ -110,6 +109,9 @@ public class MainMenu {
 				try {
 					NewShipmentDialog NSHIP = new NewShipmentDialog();
 					NSHIP.setCapacity("8200000", "35000000");
+					JOptionPane.showMessageDialog(null,"Επαναφέρατε επιτυχώς τον υπολοιπόμενο χώρο στα μεταφορικά μέσα"
+							+ " \n στην μέγιστη χωρητικότητα "
+							+ "\n (8,2 κυβικά μέτρα για το container του πλοίου και 32 κυβικά μέτρα για το αεροσκάφος)");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
