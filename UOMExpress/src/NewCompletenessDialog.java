@@ -1,7 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -15,16 +15,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
+
 
 public class NewCompletenessDialog extends JDialog {
 	
@@ -117,8 +117,7 @@ public class NewCompletenessDialog extends JDialog {
 		
 		
 		
-		System.out.println(remainingShipPercentage );
-		System.out.println(remainingPlanePercentage);
+	
 
 		JLabel shipPicture = new JLabel("");
 		

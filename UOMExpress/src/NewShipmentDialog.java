@@ -1,6 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,12 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
+
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ButtonGroup;
@@ -24,7 +24,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.Dimension;
-import javax.swing.JSplitPane;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
@@ -33,23 +33,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
-import java.sql.Date;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+
 import java.util.Calendar;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.UIManager;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 public class NewShipmentDialog extends JDialog {
@@ -239,7 +229,7 @@ public class NewShipmentDialog extends JDialog {
 			
 				if (inputIsCorrect){  	//checks if there is enough space in the selected transportation method.
 				try {
-					if(reduceCapacity("C:/Users/argir/git/UoM-Express/UOMExpress/capacity.txt", size1TextField.getText(), size2TextField.getText(), size3TextField.getText(), 
+					if(reduceCapacity("src/textFiles/capacity.txt", size1TextField.getText(), size2TextField.getText(), size3TextField.getText(), 
 							selectedShippingMethod)){
 						
 						
@@ -426,7 +416,6 @@ public class NewShipmentDialog extends JDialog {
 			//Getting current date
 			Calendar cal = Calendar.getInstance();
 			//Displaying current date in the desired format
-			System.out.println("Current Date: "+sdf.format(cal.getTime()));
 			
 			if (selectedShippingMethod == "SH"){
 				//Number of Days to add
@@ -440,14 +429,14 @@ public class NewShipmentDialog extends JDialog {
 			//Date after adding the days to the current date
 			String dateOfArrival = sdf.format(cal.getTime());  
 			//Displaying the new Date after addition of Days to current date
-			System.out.println("Ημερομηνία άφιξης αποστολής: "+ dateOfArrival);
+		
 				
 			
 			
 			writer.write(barcode + "," + senderName + "," + recieverName + "," + TKtext + "," + telephoneText + ","
 					+ size1 + "," + size2 + "," + size3 + "," + selectedShippingMethod + "," + dateOfArrival );
 			
-			System.out.println(barcode);   
+			
 
 			writer.newLine();  //new line here so that every order gets saved in its own line/
 
@@ -498,10 +487,9 @@ public class NewShipmentDialog extends JDialog {
 		 
 			String line = scan.nextLine();
 				separatedByCommasMethod = line.split(",");  //pushes the selected line into an array.every String is put in a different field. starting at [0]
-				System.out.println(separatedByCommasMethod[0]);	
+				
 				if (toBeReduced == "SH"){ 
-					System.out.println(Integer.parseInt(separatedByCommasMethod[0]));
-					System.out.println(packetSizeInVolume);
+				
 					if((Integer.parseInt(separatedByCommasMethod[0])) > packetSizeInVolume)
 					{
 					separatedByCommasMethod[0] = String.valueOf(Integer.parseInt(separatedByCommasMethod[0]) - packetSizeInVolume);
@@ -596,7 +584,7 @@ public class NewShipmentDialog extends JDialog {
 			JOptionPane.showMessageDialog(null, "Παρακαλώ συμπληρώστε μήκος δέματος");
 			return false;
 		}
-			if (Integer.parseInt(size1) > 100 || Integer.parseInt(size2) > 100 || Integer.parseInt(size3) > 100) {
+			if (Integer.parseInt(size1) > 500 || Integer.parseInt(size2) > 100 || Integer.parseInt(size3) > 100) {
 			JOptionPane.showMessageDialog(null, "Οι διαστάσεις δέματος είναι πολύ μεγάλες");  //checks if packet is too big (limit here is 100x100x100 centimeters)
 			return false;
 			

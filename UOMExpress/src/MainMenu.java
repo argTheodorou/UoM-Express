@@ -1,52 +1,34 @@
-//Έχοντας φτάσει στο τέλος της προθεσμίας υποβολής του έργου και κοιτώντας πίσω θα άλλαζα πολλά κομμάτια προγραμματιστικά αλλά δεν προλαβαίνω
 //Οι αποστολές θα έπρεπε να είναι αντικείμενα κλάσεων που θα δημιουργόντουσαν από μια κλάση-εντολέα.
 //Επίσης τα 2 μεταφορικά μέσα θα έπρεπε να είναι αντικείμενα.
-//Έτσι όπως είναι γραμμένος ο κώδικας μοιάζει πιο πολύ με με διαδικασιακό προγραμματισμό παρά με αντικειμενοστρεφή που είναι η Java.
+//Έτσι όπως είναι γραμμένος ο κώδικας μοιάζει πιο πολύ με με διαδικασιακό προγραμματισμό παρά με αντικειμενοστρεφή.
 //Γράγτηκε όμως με μεράκι and it somehow works.
 
-
 //Προγραμματισμός: Αργύρης Θεοδώρου, dai16273
-
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JRadioButton;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
+
 import javax.swing.JButton;
-import java.awt.Window.Type;
+
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.Button;
+
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Canvas;
-import javax.swing.JProgressBar;
+
 import java.awt.Font;
-import javax.swing.UIManager;
+
 import javax.swing.ButtonGroup;
-import javax.swing.JTextArea;
-import javax.swing.border.BevelBorder;
-import javax.swing.JScrollPane;
-import javax.swing.ImageIcon;
+
 import java.awt.Dimension;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.border.LineBorder;
-import javax.swing.JFormattedTextField;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.CompoundBorder;
 
 public class MainMenu {
 
@@ -62,7 +44,6 @@ public class MainMenu {
 	private JTextField textField_7;
 	private JTextField searchNumberField;
 
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -76,7 +57,6 @@ public class MainMenu {
 		});
 	}
 
-	
 	public MainMenu() {
 		initialize();
 	}
@@ -121,22 +101,22 @@ public class MainMenu {
 
 			}
 		});
-		
-		
-		//με αυτό το κουμπί, ο χρήστης μπορεί να επαναφέρει τον υπολοιπόμενο χώρο στα μεταφορικά μέσα στην αρχική του κατάσταση.
-		JButton helpBtn = new JButton("\u0392\u03BF\u03AE\u03B8\u03B5\u03B9\u03B1");
+
+		// με αυτό το κουμπί, ο χρήστης μπορεί να επαναφέρει τον υπολοιπόμενο
+		// χώρο στα μεταφορικά μέσα στην αρχική του κατάσταση.
+		JButton helpBtn = new JButton("RESET μέσα μεταφοράς");
 		helpBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					NewShipmentDialog NSHIP = new NewShipmentDialog();
-					NSHIP.setCapacity("8200000","35000000");
+					NSHIP.setCapacity("8200000", "35000000");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
-			
+
 		});
 
 		JButton completnessButton = new JButton("Κατάσταση μέσων");
@@ -147,7 +127,7 @@ public class MainMenu {
 				NewCompletenessDialog completnessDial = null;
 				try {
 					completnessDial = new NewCompletenessDialog();
-					
+
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -158,25 +138,24 @@ public class MainMenu {
 		completnessButton.setFont(new Font("Calibri", Font.BOLD, 30));
 
 		GroupLayout groupLayout = new GroupLayout(frmUOMEXPRESS.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup().addGap(72).addGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup().addGap(72)
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								groupLayout.createSequentialGroup()
+										.addComponent(completnessButton, GroupLayout.PREFERRED_SIZE, 315,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(completnessButton, GroupLayout.PREFERRED_SIZE, 315,
-										GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addComponent(newPacketbtn, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
 										.addComponent(searchBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
 												Short.MAX_VALUE))
 								.addGap(95))))
-				.addGroup(Alignment.LEADING,
-						groupLayout.createSequentialGroup().addGap(169)
-								.addComponent(helpBtn, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(201, Short.MAX_VALUE)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
-				groupLayout.createSequentialGroup().addGap(85)
+				.addGroup(groupLayout.createSequentialGroup().addGap(148).addComponent(helpBtn).addContainerGap(189,
+						Short.MAX_VALUE)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addGap(85)
 						.addComponent(newPacketbtn, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(searchBtn, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)

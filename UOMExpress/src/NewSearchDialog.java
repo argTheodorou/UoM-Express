@@ -1,5 +1,5 @@
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -202,9 +202,9 @@ public class NewSearchDialog extends JDialog {
 		String [] notFound = {"ERROR"};
 		while (scan.hasNext()) {
 			String line = scan.nextLine().toString();
-			if (line.contains(trackingNumber)) { //searches whole document line by line if it contains the tracking number
 			separatedByCommasArray = line.split(",");  //pushes the selected line into an array.every String is put in a different field. starting at [0]
-				
+		
+			if (separatedByCommasArray[0].equals(trackingNumber)) { //checks if tracking number is 
 				if (separatedByCommasArray[3].equals(postCode)){   //if the same line that contained the tracking number also contains the postCode
 					return separatedByCommasArray; 					//the line gets returned as an array
 				}				
