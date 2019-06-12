@@ -535,6 +535,7 @@ public class NewShipmentDialog extends JDialog {
 		String hour = Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 		String minute = Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
 		String second = Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
+		int meme = 1;
 		int randomNumber = 100 + rand.nextInt(900);
 
 		String trackNumber = "GR" + month + day + hour + minute + second + randomNumber;
