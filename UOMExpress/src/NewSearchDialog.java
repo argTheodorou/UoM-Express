@@ -88,6 +88,8 @@ public class NewSearchDialog extends JDialog {
 		JButton button = new JButton("");
 		button.setToolTipText("Αναζήτηση");
 		button.addActionListener(new ActionListener() {
+			
+			
 			public void actionPerformed(ActionEvent arg0) {        
 				             
 				try {
@@ -202,11 +204,11 @@ public class NewSearchDialog extends JDialog {
 		String [] notFound = {"ERROR"};
 		while (scan.hasNext()) {
 			String line = scan.nextLine().toString();
-			separatedByCommasArray = line.split(",");  //pushes the selected line into an array.every String is put in a different field. starting at [0]
+			separatedByCommasArray = line.split(",");  //pushes the selected line into an array. Every String is put in a different field. Starting at [0].
 		
-			if (separatedByCommasArray[0].equals(trackingNumber)) { //checks if tracking number is 
-				if (separatedByCommasArray[3].equals(postCode)){   //if the same line that contained the tracking number also contains the postCode
-					return separatedByCommasArray; 					//the line gets returned as an array
+			if (separatedByCommasArray[0].equals(trackingNumber)) { //ελέγχει αν ο αριθμός παρακολούθησης που ψάχνουμε είναι στο κελί [0]
+				if (separatedByCommasArray[3].equals(postCode)){   //αν είναι, τότε ελέγχει αν στο 4ο κελί είναι ο αντίστοιχος Τ.Κ.
+					return separatedByCommasArray; 					//και επιστρέφει όλον τον πίνακα
 				}				
 			}
 		}
