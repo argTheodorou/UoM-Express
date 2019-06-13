@@ -31,7 +31,7 @@ public class NewSearchDialog extends JDialog {
 	private JTextField searchBarcodeField;
 	private JTextField searchPostCodeField;
 	private String newLine = System.getProperty("line.separator");
-
+ 
 
 	public NewSearchDialog() throws FileNotFoundException {
 		setTitle(

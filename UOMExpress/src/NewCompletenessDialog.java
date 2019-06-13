@@ -45,8 +45,8 @@ public class NewCompletenessDialog extends JDialog {
 		contentPanel1.setBackground(new Color(57, 62, 70));
 		
 		//textAreas to be used to display remaining ammount of space left
-		JTextArea capacityFieldShip = new JTextArea();
-		capacityFieldShip.setLineWrap(true);
+		JTextArea capacityFieldShip = new JTextArea(); 
+		capacityFieldShip.setLineWrap(true);  
 		JTextArea capacityFieldPlane = new JTextArea();
 		capacityFieldPlane.setForeground(Color.WHITE);
 		capacityFieldPlane.setFont(new Font("Calibri", Font.BOLD, 18));
