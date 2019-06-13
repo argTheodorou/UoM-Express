@@ -225,17 +225,17 @@ public class NewShipmentDialog extends JDialog {
 				else 
 					selectedShippingMethod = "SH";
 				
-				// IF INPUT IS VALIDATED AND RESULT OF TEST IS TRUE, THEN THE
-				// ORDER IS PROCESSED AND ADDED TO THE LIST
+				
+				// αρχικά γίνεται έλεγχος εισόδου για τα στοιχεία που συμπλήρωσε ο χρήστης
 				boolean inputIsCorrect = true;
 				inputIsCorrect = validateInput(senderNameField.getText(), recieverNameField.getText(), postCodeTextField.getText(),
 						telephoneText.getText(), size1TextField.getText(), size2TextField.getText(), size3TextField.getText());
-			
+				
+				//ΑΝ περάσει το "τεστ" εισόδου επιτυχώς, το σύστημα ελέγχει αν υπάρχει διαθέσιμος χώρος στο μεταφορικό μέσο που επιλέχτηκε
 				if (inputIsCorrect){  	
 				try {
 					if(reduceCapacity("src/textFiles/capacity.txt", size1TextField.getText(), size2TextField.getText(), size3TextField.getText(), 
 							selectedShippingMethod)){
-						//checks if there is enough space in the selected transportation method.
 						
 					}
 					else
@@ -245,7 +245,8 @@ public class NewShipmentDialog extends JDialog {
 				}
 				}
 				
-				if (inputIsCorrect) {  //only if inputIsCorrect is STILL true, the shipping gets added to the list.
+				//ΜΟΝΟ όταν περάσει τα 2 τέστ η είσοδος του χρήστη η αποστολή καταχωρείται στο σύστημα.
+				if (inputIsCorrect) {  
 					String trackingNumber = null;
 					try {   //newShipment saves the order in the file and returns the trackingNumber so it can be given to the user/customer. 
 						trackingNumber = newShipment(senderNameField.getText(), recieverNameField.getText(), postCodeTextField.getText(), telephoneText.getText(),
@@ -254,7 +255,7 @@ public class NewShipmentDialog extends JDialog {
 						e1.printStackTrace();
 					}
 					
-					//prints the "SUCCESS" message with the important data that was entered and the newly created trackingNumber
+					//prints the "SUCCESS" message with the important data that was entered and the newly generated trackingNumber
 					JOptionPane.showMessageDialog(null,
 							        "ΑΠΟΣΤΟΛΗ ΚΑΤΑΧΩΡΗΘΗΚΕ: \n \n ΟΝΟΜΑ ΑΠΟΣΤΟΛΕΑ:  " 
 									+ senderNameField.getText()
