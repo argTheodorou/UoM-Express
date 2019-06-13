@@ -50,7 +50,7 @@ public class NewShipmentDialog extends JDialog {
 	private JTextField adressTextField;
 	private JTextField postCodeTextField;
 	private JTextField telephoneText;
-	private JTextField size1TextField;
+	private JTextField size1TextField; 
 	private JTextField size2TextField;
 	private JTextField size3TextField;
 
@@ -262,11 +262,16 @@ public class NewShipmentDialog extends JDialog {
 									+ "\n ΔΙΕΥΘΥΝΣΗ ΠΑΡΑΛΗΠΤΗ: "
 									+ adressTextField.getText()
 									+ "\n ΚΩΔΙΚΟΣ ΑΝΑΖΗΤΗΣΗΣ: " 
-									+trackingNumber);
+									+trackingNumber
+									+ "\n ΚΟΣΤΟΣ ΑΠΟΣΤΟΛΗΣ: "
+									+ calculateCost(size1TextField.getText(), size2TextField.getText(), size3TextField.getText(), selectedShippingMethod)
+									+ "ΕΥΡΩ");
 					dispose();
 				}
 
 			}
+
+			
 
 		});
 
@@ -457,6 +462,16 @@ public class NewShipmentDialog extends JDialog {
 		
 	}
 	
+	
+	private String calculateCost(String size1, String size2, String size3, String selectedShippingMethod) {
+		String cost = null;
+		int volume = Integer.parseInt(size1)+Integer.parseInt(size2)+Integer.parseInt(size3);
+		if(selectedShippingMethod == "SH"){
+			cost = String.valueOf(volume *0.3);
+		}else
+			cost = String.valueOf(volume * 0.5);
+		return cost;
+	}
 	
 	public void setCapacity(String shipSize, String planeSize) {
 		PrintWriter capacityWriter = null;
