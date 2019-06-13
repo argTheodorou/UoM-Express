@@ -479,7 +479,6 @@ public class NewShipmentDialog extends JDialog {
 		PrintWriter capacityWriter = null;
 		try {
 			File capacityFile = new File("src/textFiles","capacity.txt");
-			System.out.println(capacityFile.getCanonicalPath());
 			capacityWriter = new PrintWriter(new FileWriter(capacityFile));
 			capacityWriter.write(shipSize + "," + planeSize);
 			
