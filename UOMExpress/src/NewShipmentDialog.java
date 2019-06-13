@@ -463,7 +463,7 @@ public class NewShipmentDialog extends JDialog {
 		
 	}
 	
-	
+	//straight-forward cost calculator for the packages
 	private String calculateCost(String size1, String size2, String size3, String selectedShippingMethod) {
 		String cost = null;
 		int volume = Integer.parseInt(size1)+Integer.parseInt(size2)+Integer.parseInt(size3);
@@ -473,6 +473,7 @@ public class NewShipmentDialog extends JDialog {
 			cost = String.valueOf(volume * 0.5);
 		return cost;
 	}
+	
 	
 	public void setCapacity(String shipSize, String planeSize) {
 		PrintWriter capacityWriter = null;
